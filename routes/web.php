@@ -17,6 +17,7 @@ use App\Http\Controllers\SearchandSeizureController;
 use App\Http\Controllers\FrozenAssetController;
 use App\Http\Controllers\SuspensionController;
 use App\Http\Controllers\Complaint\ComplaintController;
+use App\Http\Controllers\Dzonkhag\DzonkhagController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -245,3 +246,7 @@ Route::post('SaveComplaintRegistration',[ComplaintController::class,'SaveComplai
 // dependency-dropdown
 Route::get('get-gewog-onchange-dzongkhag',[ComplaintController::class,'getGewog'])->name('get.gewog.onchange.dzongkhag');
 Route::get('get-village-onchange-gewog',[ComplaintController::class,'getVillage'])->name('get.village.onchange.gewog');
+
+// Dzonkhag crud
+Route::resource('dzonkhag', DzonkhagController::class);
+Route::get('dzonkhags/{id}',[DzonkhagController::class,'deleteDz'])->name('dzonkhag.delete');
