@@ -16,7 +16,7 @@ use App\Http\Controllers\ArrestandDetentionController;
 use App\Http\Controllers\SearchandSeizureController;
 use App\Http\Controllers\FrozenAssetController;
 use App\Http\Controllers\SuspensionController;
-
+use App\Http\Controllers\Complaint\ComplaintController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -207,3 +207,41 @@ Route::post('/addsuspension', [SuspensionController::class, 'addsuspension'])->n
 Route::get('/generatesuspensionorder/{id}/{casenoid}', [SuspensionController::class, 'generatesuspensionorder'])->name('generatesuspensionorder');
 Route::get('/revokesuspensionorder/{id}/{casenoid}', [SuspensionController::class, 'revokesuspensionorder'])->name('revokesuspensionorder');
 
+
+
+// complaint-register-module
+Route::get('manage-complaint-attachment/{id}',[ComplaintController::class,'attachmentView'])->name('attachment.view.complaint');
+Route::post('manage-complaint-attachment/post-complaint',[ComplaintController::class,'attachmentPost'])->name('attachment.post.complaint');
+Route::get('manage-complaint-attachment/delete-attachment/{id}',[ComplaintController::class,'attachmentDelete'])->name('attachment.delete.complaint');
+
+// case-link
+Route::get('manage-complaint-link-case/{id}',[ComplaintController::class,'linkCaseView'])->name('link.case.complaint');
+
+Route::post('manage-complaint-link-case/registerLink',[ComplaintController::class,'registerLink'])->name('link.case.complaint.register');
+
+Route::get('manage-complaint-link-case/delete/{id}',[ComplaintController::class,'deleteLink'])->name('link.case.complaint.delete');
+
+Route::get('manage-complaint-link-case/link-person-case/{complaint_id}/{id}',[ComplaintController::class,'linkPersonCase'])->name('link.case.complaint.person.case');
+
+// search-case
+Route::post('autocomplete-search-case',[ComplaintController::class,'searchCasesAutoComplete'])->name('search.autocomplete.cases');
+
+// person-involved
+Route::get('manage-complaint-person-involved/{id}',[ComplaintController::class,'personInvolvedView'])->name('person.involved.complaint');
+Route::get('manage-complaint-person-involved/delete-person/{id}/{complaint_id}',[ComplaintController::class,'personInvolvedDelete'])->name('person.involved.complaint.delete.person');
+Route::post('manage-complaint-person-involved/ajax-person-bhutanese-details',[ComplaintController::class,'bhutaneseDetails'])->name('person.involved.bhutanese.details');
+
+Route::post('manage-complaint-person-involved/ajax-person-non-bhutanese-details',[ComplaintController::class,'noNbhutaneseDetails'])->name('person.involved.non.bhutanese.details');
+
+Route::post('manage-complaint-person-involved/post-person-involved',[ComplaintController::class,'postPersonInvolved'])->name('postPersonInvolved.person.involved');
+
+// complaint-registration
+Route::get('manage-complaint-registration-add',[ComplaintController::class,'complaintRegView'])->name('complaint.registration.add.view');
+Route::get('fetchConstituency',[ComplaintController::class,'fetchConstituency'])->name('get.fetchConstituency');
+Route::get('fetchAgency',[ComplaintController::class,'fetchAgency'])->name('get.fetchAgency');
+Route::get('departmentFetch',[ComplaintController::class,'departmentFetch'])->name('get.departmentFetch');
+
+Route::post('SaveComplaintRegistration',[ComplaintController::class,'SaveComplaintRegistration'])->name('SaveComplaintRegistration');
+// dependency-dropdown
+Route::get('get-gewog-onchange-dzongkhag',[ComplaintController::class,'getGewog'])->name('get.gewog.onchange.dzongkhag');
+Route::get('get-village-onchange-gewog',[ComplaintController::class,'getVillage'])->name('get.village.onchange.gewog');
