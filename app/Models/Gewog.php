@@ -10,4 +10,8 @@ class Gewog extends Model
     use HasFactory;
     protected $table='pl_tblgewog';
     protected $primaryKey = 'gewogID';
+
+    public function getDzongkhagDetails(){
+        return $this->hasOne('App\Models\Dzongkhag', 'dzoID', 'dzoID');
+    }
 }
