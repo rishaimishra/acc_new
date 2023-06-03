@@ -12,11 +12,11 @@
                         {{-- Dzonkhag List --}}
                         <div class="row" style="font-family:Product Sans">
                             <div class="col-sm">
-                                Gewog List
+                                Village List
                             </div>
                             <div class="col-sm">
                               <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModa3">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModa4">
                                     Add
                                 </button>
                             </div>
@@ -47,10 +47,10 @@
                                     {{-- {{$data}} --}}
                                     @foreach(@$data as $att)
                                     <tr>
-                                        <td>{{ $att->gewogID }}</td>
+                                        <td>{{ $att->villageID }}</td>
                                         <td>{{ $att->created_at }}</td>
-                                        <td>{{ $att->gewogName }}</td>
-                                        <td>{{ $att->getDzongkhagDetails->dzoName }}</td>
+                                        <td>{{ $att->villageName }}</td>
+                                        <td>{{ $att->getGewogDetails->gewogName }}</td>
                                         <td>
                                                         {{-- <a class="btn btn-xs btn-info"
                                                                href="{{URL::to('attachment/complaintRegistration')}}/{{$att->AttachmentPath}}" target="_blank">
@@ -58,7 +58,7 @@
                                                                 View
                                                             </a>
                                                              --}}
-                                                            <a class="btn btn-xs btn-danger" href="{{route('gewog.delete',['id'=>@$att->gewogID])}}" onclick="return confirm('Are you sure , you want to delete this attachment ? ')"><i class="fa fa-trash"></i>
+                                                            <a class="btn btn-xs btn-danger" href="{{route('village.delete',['id'=>@$att->villageID])}}" onclick="return confirm('Are you sure , you want to delete this attachment ? ')"><i class="fa fa-trash"></i>
                                                                 Delete
                                                             </a>
                                         </td>
@@ -77,7 +77,7 @@
 
 
         <!-- Modal -->
-<div class="modal fade" id="exampleModa3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModa4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -87,18 +87,18 @@
           </button>
         </div>
         <div class="modal-body">
-            <form method="post" action="{{route('gewog.store')}}">@csrf
+            <form method="post" action="{{route('village.store')}}">@csrf
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Gewog</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" name="gewogName" aria-describedby="emailHelp" placeholder="Gewog Name">
+                  <label for="exampleInputEmail1">Village</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" name="villageName" aria-describedby="emailHelp" placeholder="Village Name">
                   {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
                 </div>
 
                 <div class="form-group">
-                  <select class="form-control" aria-label="Default select example" name="DzoID">
+                  <select class="form-control" aria-label="Default select example" name="gewogID">
                     <option value="">Select</option>
                     @foreach(@$processing as $value)
-                    <option value="{{$value->dzoID}}">{{@$value->dzoName}}</option>
+                    <option value="{{$value->gewogID}}">{{@$value->gewogName}}</option>
                     @endforeach
                   </select>
                 </div>

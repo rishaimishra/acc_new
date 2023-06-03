@@ -19,6 +19,7 @@ use App\Http\Controllers\SuspensionController;
 use App\Http\Controllers\Complaint\ComplaintController;
 use App\Http\Controllers\Dzonkhag\DzonkhagController;
 use App\Http\Controllers\Gewog\GewogController;
+use App\Http\Controllers\Village\VillageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -251,5 +252,7 @@ Route::get('get-village-onchange-gewog',[ComplaintController::class,'getVillage'
 // Dzonkhag crud
 Route::resource('dzonkhag', DzonkhagController::class);
 Route::resource('gewog', GewogController::class);
+Route::resource('village', VillageController::class);
 Route::get('dzonkhags/{id}',[DzonkhagController::class,'deleteDz'])->name('dzonkhag.delete');
-Route::get('gewogs/{id}',[DzonkhagController::class,'deleteGz'])->name('gewog.delete');
+Route::get('gewogs/{id}',[GewogController::class,'deleteGz'])->name('gewog.delete');
+Route::get('villages/{id}',[VillageController::class,'deleteVj'])->name('village.delete');

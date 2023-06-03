@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Gewog;
+namespace App\Http\Controllers\Village;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Redirect;
+use Illuminate\Http\Request; 
 use App\Models\Gewog;
-use App\Models\Dzongkhag;
+use App\Models\Village;
 use Alert;
+use Redirect;
 
 
-class GewogController extends Controller
+
+class VillageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,12 +21,11 @@ class GewogController extends Controller
     public function index()
     {
         $data = [];
-        $Dzonkhag = [];
-        $data['data'] = Gewog::with('getDzongkhagDetails')->orderBy('gewogID','desc')->where('isDelete',0)->get();
-        $data['processing'] = Dzongkhag::where('isDelete',0)->get();
+        $data['data'] = Village::with('getGewogDetails')->orderBy('villageID','desc')->where('isDelete',0)->get();
+        $data['processing'] = Gewog::where('isDelete',0)->get();
 
         // dd($data);
-        return view('gewog.list', $data);
+        return view('village.list', $data);
     }
 
     /**
@@ -46,11 +46,10 @@ class GewogController extends Controller
      */
     public function store(Request $request)
     {
-        
         // dd($request);
-        $dzonkhag = new Gewog();
-        $dzonkhag->gewogName = $request->gewogName;
-        $dzonkhag->DzoID = $request->DzoID;
+        $dzonkhag = new Village();
+        $dzonkhag->villageName = $request->villageName;
+        $dzonkhag->gewogID = $request->gewogID;
         $dzonkhag->isDelete = 0;
         $dzonkhag->save();
 
@@ -103,10 +102,10 @@ class GewogController extends Controller
         //
     }
 
-    public function deleteGz($id){
+    public function deleteVj($id){
         // dd($id);
-        Gewog::where(['gewogID' => $id])->delete();
-        Alert::success(' Gewog Deleted Successfully');
+        Village::where(['villageID' => $id])->delete();
+        Alert::success(' Village Deleted Successfully');
         return redirect()->back();
     }
 }

@@ -10,4 +10,8 @@ class Village extends Model
     use HasFactory;
     protected $table='pl_tblvillage';
     protected $primaryKey = 'villageID';
+
+    public function getGewogDetails(){
+        return $this->hasOne('App\Models\Gewog', 'gewogID', 'gewogID');
+    }
 }
