@@ -12,6 +12,7 @@ href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTabl
     <div id="casedetailscard" class="container-fluid">
         <div class="row">
             <div class="col-md-12">
+                <a href="{{route('complaint.registration.add.view')}}" class="btn btn-primary">Register Complaint</a>
                 <div class="card card-primary card-outline card-outline-tabs">
                     <div class="card-header" style="font-family:Product Sans"> Case List </div>
                         <div class = "card-body">
