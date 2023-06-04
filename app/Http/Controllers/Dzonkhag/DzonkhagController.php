@@ -19,7 +19,7 @@ class DzonkhagController extends Controller
     public function index()
     {
         $data = [];
-        $data['data'] = Dzongkhag::where('isDelete',0)->get();
+        $data['data'] = Dzongkhag::orderBy('dzoID','desc')->where('isDelete',0)->get();
         return view('Dzonkhag.list', $data);
     }
 

@@ -18,8 +18,8 @@ class EmbasyController extends Controller
     public function index()
     {
         $data = [];
-        $data['data'] = Dzongkhag::where('isDelete',0)->get();
-        return view('Dzonkhag.list', $data);
+        $data['data'] = Embassy::orderBy('embassyID','desc')->where('isDelete',0)->get();
+        return view('Embassy.list', $data);
     }
 
     /**
@@ -40,7 +40,14 @@ class EmbasyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //  dd($request);
+         $dzonkhag = new Embassy();
+         $dzonkhag->embassyName = $request->embassyName;
+         $dzonkhag->isDelete = 0;
+         $dzonkhag->save();
+ 
+         Alert::success('You\'ve Successfully Added A Dzonkhag ');
+         return Redirect::back();
     }
 
     /**
@@ -83,8 +90,11 @@ class EmbasyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteEmbassy($id)
     {
-        //
+         // dd($id);
+         Embassy::where(['embassyID' => $id])->delete();
+         Alert::success(' Embassy Deleted Successfully');
+         return redirect()->back();
     }
 }
