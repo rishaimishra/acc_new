@@ -5,6 +5,25 @@
 <br>
 <section class="content">
     <div id="casedetailscard" class="container-fluid">
+
+        <ul class="nav nav-pills mb-3 shadow-sm" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('complaint.registration.edit.view',['id'=>@$id])}}">Complaint Details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active btn btn-info"  href="{{route('attachment.view.complaint',['id'=>@$id])}}">Attachment Details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('person.involved.complaint',['id'=>@$id])}}" >Person Involved</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('link.case.complaint',['id'=>@$id])}}">Link Case</a>
+        </li>
+      </ul>
+
+
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary card-outline card-outline-tabs">

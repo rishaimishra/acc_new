@@ -12,72 +12,34 @@
         /*.select2-container--default .select2-selection--multiple .select2-selection__rendered li{
             background: #606060;
         }*/
-
-        /* nav */
-.card {
-  max-width: 25rem;
-  padding: 0;
-  border: none;
-  border-radius: 0.5rem;
-}
-
-a.active {
-  border-bottom: 2px solid #55c57a;
-}
-
-.nav-link {
-  color: rgb(110, 110, 110);
-  font-weight: 500;
-}
-.nav-link:hover {
-  color: #55c57a;
-}
-
-.nav-pills .nav-link.active {
-  color: black;
-  background-color: white;
-  border-radius: 0.5rem 0.5rem 0 0;
-  font-weight: 600;
-}
-
     </style>
 <br>
 <section class="content">
     <div id="casedetailscard" class="container-fluid">
 
-        
-
         <ul class="nav nav-pills mb-3 shadow-sm" id="pills-tab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active btn btn-info" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Complaint Details</a>
+          <a class="nav-link active btn btn-info" href="{{route('complaint.registration.edit.view',['id'=>@$id])}}">Complaint Details</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" disabled id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Attachment Details</a>
+          <a class="nav-link "  href="{{route('attachment.view.complaint',['id'=>@$id])}}">Attachment Details</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" disabled id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Person Involved</a>
+          <a class="nav-link" href="{{route('person.involved.complaint',['id'=>@$id])}}" >Person Involved</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" disabled id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Link Case</a>
+          <a class="nav-link" href="{{route('link.case.complaint',['id'=>@$id])}}">Link Case</a>
         </li>
       </ul>
 
-        <form method="post" action="{{route('SaveComplaintRegistration')}}" enctype="multipart/form-data">
+
+
+        <form method="post" action="{{route('complaint.registration.edit.update')}}" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="complaintID" value="{{@$id}}">
+            <input type="hidden" name="complaintID" value="{{@$data->complaintID}}">
             <div class="row">
-                {{-- <div class="col-sm-12">
-                <div class="form-group">
-              <label for="select2Multiple">Multiple Tags</label>
-              <select class="select2-multiple form-control" name="tags[]" multiple="multiple"
-                id="select2Multiple">
-                <option value="tag1">tag1</option>
-                <option value="tag2">tag2</option>
-                <option value="tag3">tag3</option>               
-              </select>
-            </div>
-        </div> --}}
+              
 
 
                 <div class="col-sm-6">
@@ -86,7 +48,7 @@ a.active {
                             <select class="form-control" name="compliantProcessingType">
                                 <option value="">Select</option>
                                 @foreach(@$processing as $value)
-                                <option value="{{$value->complaintProcessingTypeID}}">{{@$value->processingTypeName}}</option>
+                                <option value="{{$value->complaintProcessingTypeID}}" @if(@$data->complaintProcessingTypeID==$value->complaintProcessingTypeID) selected @endif>{{@$value->processingTypeName}}</option>
                                 @endforeach
                             </select>
                     </div>
@@ -96,14 +58,14 @@ a.active {
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Registration No<span style="font-weight: bold; color: red;"></span></label>
-                            <input type="text" class="form-control" name="complaint_registration_no" value="{{@$complaint_registration_no}}" readonly>
+                            <input type="text" class="form-control" name="complaint_registration_no" value="{{@$data->complaintRegNo}}" readonly>
                     </div>
                 </div>
 
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label>Complaint Title<span style="font-weight: bold; color: red;">*</span></label>
-                            <input type="text" class="form-control" name="complaint_title" >
+                            <input type="text" class="form-control" name="complaint_title" value="{{@$data->complaintTitle}}">
                     </div>
                 </div>
 
@@ -112,14 +74,14 @@ a.active {
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>Date Time<span style="font-weight: bold; color: red;">*</span></label>
-                            <input class="form-control" name="complaintDateTime" type="date" required>
+                            <input class="form-control" name="complaintDateTime" type="date" value="{{@$data->complaintDateTime}}" required>
                     </div>
                 </div>
 
                  <div class="col-sm-4">
                     <div class="form-group">
                         <label>Occurrence From<span style="font-weight: bold; color: red;">*</span></label>
-                            <input class="form-control" name="complaintOccurrenceFrom" type="date" required>
+                            <input class="form-control" name="complaintOccurrenceFrom"  value="{{@$data->occurrencePeriodFrom}}" type="date" required>
                     </div>
                 </div>
 
@@ -127,10 +89,12 @@ a.active {
                  <div class="col-sm-4">
                     <div class="form-group">
                         <label>Occurrence Till<span style="font-weight: bold; color: red;">*</span></label>
-                            <input class="form-control" name="complaintOccurrenceTill" type="date" required>
+                            <input class="form-control" name="complaintOccurrenceTill"  value="{{@$data->occurrencePeriodTill}}" type="date" required>
                     </div>
                 </div>
 
+
+               
 
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -138,7 +102,7 @@ a.active {
                             <select class="select2-multiple form-control" name="ComplaintReceivedBy[]" multiple="multiple"
                             id="select2Multiple">
                             @foreach(@$employe as $value)
-                            <option value="{{@$value->id}}">{{@$value->name}}</option>
+                            <option value="{{@$value->id}}" {{ (in_array($value->id, $received_users)) ? 'selected' : '' }}>{{@$value->name}}</option>
                             @endforeach              
                           </select>
                     </div>
@@ -150,7 +114,7 @@ a.active {
                             <select class="form-control" name="complaintMode">
                                 <option value="">Select</option>
                                 @foreach(@$mode as $value)
-                                <option value="{{$value->complaintmodeID}}">{{@$value->modeName}}</option>
+                                <option value="{{$value->complaintmodeID}}" @if(@$data->modeID==$value->complaintmodeID) selected @endif>{{@$value->modeName}}</option>
                                 @endforeach
                             </select>
                     </div>
@@ -163,7 +127,7 @@ a.active {
                             <select class="form-control" name="dzongkhag" id="dzongkhag">
                                 <option value="">Select</option>
                                 @foreach(@$dzongkhag as $value)
-                                <option value="{{$value->dzoID}}">{{@$value->dzoName}}</option>
+                                <option value="{{$value->dzoID}}" @if(@$data->placeOfOccurrenceDzongkhagID==$value->dzoID) selected @endif>{{@$value->dzoName}}</option>
                                 @endforeach
                             </select>
                     </div>
@@ -174,6 +138,9 @@ a.active {
                         <label>Gewog<span style="font-weight: bold; color: red;"></span></label>
                             <select class="form-control" name="gewog" id="gewog">
                                 <option value="">Select Gewog</option>
+                                @foreach(@$gewog as $value)
+                                <option value="{{$value->gewogID}}" @if(@$data->placeOfOccurrenceGewogID==$value->gewogID) selected @endif>{{@$value->gewogName}}</option>
+                                @endforeach
                             </select>
                     </div>
                 </div>
@@ -184,6 +151,9 @@ a.active {
                         <label>Village<span style="font-weight: bold; color: red;"></span></label>
                             <select class="form-control" name="village" id="village">
                                 <option value="">Select Village</option>
+                                @foreach(@$village as $value)
+                                <option value="{{$value->villageID}}" @if(@$data->placeOfOccurrenceVillageID==$value->villageID) selected @endif>{{@$value->villageName}}</option>
+                                @endforeach
                             </select>
                     </div>
                 </div>
@@ -193,20 +163,23 @@ a.active {
                         <label>Against Agency Category<span style="font-weight: bold; color: red;"></span></label>
                             <select class="form-control" name="AgainstAgencyCategory" id="AgainstAgencyCategory">
                                 <option value="">Select Agency</option>
-                                @foreach(@$agency as $value)
-                                <option value="{{@$value->empCategoryID }}">{{@$value->empCategoryName}}</option>
+                                @foreach(@$agencyCategory as $value)
+                                <option value="{{@$value->empCategoryID}}" @if(@$data->AgainstAgencyCategory==@$value->empCategoryID) selected @endif>{{@$value->empCategoryName}}</option>
                                 @endforeach
                             </select>
                     </div>
                 </div>
 
-                <div class="others" style="display:none">
+                <div class="others" @if(@$data->AgainstAgencyCategory=="1" || @$data->AgainstAgencyCategory=="2" || @$data->AgainstAgencyCategory=="22")style="display:none" @else style="display: block;" @endif>
 
                     <div class="col-sm-12">
                     <div class="form-group">
                         <label>Select Agency<span style="font-weight: bold; color: red;"></span></label>
                        <select class="form-control" name="department_others" id="department_others">
                                 <option value="">Select</option>
+                                @foreach(@$deparment as $value)
+                                <option value="{{@$value->agencyID}}" @if(@$data->AgainstDepartment==@$value->agencyID) selected @endif>{{@$value->agencyName}}</option>
+                                @endforeach
                        </select>
                     </div>
                     </div>
@@ -214,7 +187,7 @@ a.active {
                 </div> 
 
 
-                <div class="one_and_two" style="display:none">
+                <div class="one_and_two" @if(@$data->AgainstAgencyCategory=="1" || @$data->AgainstAgencyCategory=="2") style="display:block" @else  style="display:none" @endif>
 
                     <div class="col-sm-12">
                     <div class="form-group">
@@ -222,7 +195,7 @@ a.active {
                        <select class="form-control" name="Against_agency" id="Against_agency">
                                 <option value="">Select</option>
                                 @foreach(@$dzongkhag as $value)
-                                <option value="{{$value->dzoID}}">{{@$value->dzoName}}</option>
+                                <option value="{{$value->dzoID}}" @if(@$data->AgainstAgencyCategory=="1" || @$data->AgainstAgencyCategory=="2") @if(@$data->AgainstAgency==$value->dzoID) selected @endif @endif>{{@$value->dzoName}}</option>
                                 @endforeach
                             </select>
                     </div>
@@ -233,6 +206,9 @@ a.active {
                         <label>Select Constituency<span style="font-weight: bold; color: red;"></span></label>
                        <select class="form-control" name="Against_department" id="Against_department">
                                 <option value="">Select</option>
+                                @foreach(@$constituency as $value)
+                                <option value="{{$value->constituencyID}}" @if(@$data->AgainstAgencyCategory=="1" || @$data->AgainstAgencyCategory=="2") @if(@$data->AgainstDepartment==$value->constituencyID) selected @endif @endif>{{@$value->constituencyName}}</option>
+                                @endforeach
                                
                             </select>
                     </div>
@@ -242,12 +218,15 @@ a.active {
                 </div>
 
 
-                <div class="twenty_two" style="display:none">
+                <div class="twenty_two" @if(@$data->AgainstAgencyCategory!="22")style="display:none" @else style="display:block" @endif>
                     <div class="col-sm-12">
                     <div class="form-group">
                         <label>Select Agency<span style="font-weight: bold; color: red;"></span></label>
                        <select class="form-control" name="agency_againt_twenty_two" id="agency_againt_twenty_two">
                                 <option value="">Select</option>
+                                @foreach(@$agency as $value)
+                                <option value="{{$value->agencyID}}" @if(@$data->AgainstAgencyCategory=="22") @if(@$data->AgainstAgency==$value->agencyID) selected @endif @endif>{{@$value->agencyName}}</option>
+                                @endforeach
                        </select>
                     </div>
                     </div>
@@ -258,7 +237,7 @@ a.active {
                        <select class="form-control" name="Against_department_twenty_two" id="Against_department_twenty_two_id">
                                 <option value="">Select</option>
                                 @foreach(@$dzongkhag as $value)
-                                <option value="{{$value->dzoID}}">{{@$value->dzoName}}</option>
+                                <option value="{{$value->dzoID}}" @if(@$data->AgainstAgencyCategory=="22") @if(@$data->AgainstDepartment==$value->dzoID) selected @endif @endif>{{@$value->dzoName}}</option>
                                 @endforeach
                        </select>
                     </div>
@@ -275,7 +254,7 @@ a.active {
                          <select class="form-control" name="complainantType">
                                 <option value="">Select</option>
                                 @foreach(@$type as $value)
-                                <option value="{{@$value->id}}">{{@$value->complainttypeName}}</option>
+                                <option value="{{@$value->id}}" @if(@$data->complainantType==@$value->id) selected @endif>{{@$value->complainttypeName}}</option>
                                 @endforeach
                        </select>
                     </div>
@@ -285,7 +264,7 @@ a.active {
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label>Complaint Details<span style="font-weight: bold; color: red;"></span></label>
-                        <textarea class="form-control" id="text_complaint" name="complaintDetail"></textarea>
+                        <textarea class="form-control" id="text_complaint" name="complaintDetail">{{@$data->complaintDetails}}</textarea>
                     </div>
                 </div>
 
@@ -308,7 +287,7 @@ a.active {
 
 
                 <div class="col-sm-12"></div>
-                <div class="col-sm-6"><button type="submit" class="btn btn-info">Register Complaint</button></div>
+                <div class="col-sm-6"><button type="submit" class="btn btn-info">Update Complaint</button></div>
             </div>
         </form>
     </div>
