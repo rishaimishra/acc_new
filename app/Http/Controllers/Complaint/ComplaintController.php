@@ -569,6 +569,7 @@ public function postPersonInvolved(Request $request)
         $data['type'] = complaintTypeModel::get();
         // return $data['type'];
         $data['agency'] = employeeCategoryModel::get();
+        $data['gender'] = GenderModel::get();
         // generate-number
         //max month and year from the existing column
         $operatingyearmonth = DB::table('cr_tblcomplaintregistration')->max('created_at');

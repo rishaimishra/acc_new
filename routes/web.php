@@ -244,6 +244,12 @@ Route::get('fetchConstituency',[ComplaintController::class,'fetchConstituency'])
 Route::get('fetchAgency',[ComplaintController::class,'fetchAgency'])->name('get.fetchAgency');
 Route::get('departmentFetch',[ComplaintController::class,'departmentFetch'])->name('get.departmentFetch');
 
+Route::get('complaint-register',[ComplaintController::class,'list'])->name('complaint-register.list');
+Route::get('manage-complaint-registration-edit/{id}',[ComplaintController::class,'complaintRegEdit'])->name('complaint.registration.edit.view');
+
+
+Route::post('manage-complaint-registration-edit/update-complaint',[ComplaintController::class,'updateComplaint'])->name('complaint.registration.edit.update');
+
 Route::post('SaveComplaintRegistration',[ComplaintController::class,'SaveComplaintRegistration'])->name('SaveComplaintRegistration');
 // dependency-dropdown
 Route::get('get-gewog-onchange-dzongkhag',[ComplaintController::class,'getGewog'])->name('get.gewog.onchange.dzongkhag');
