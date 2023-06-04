@@ -10,4 +10,8 @@ class constituencyModel extends Model
     use HasFactory;
     protected $table = 'pl_tblconstituency';
     protected $primaryKey = 'constituencyID';
+
+    public function getDzongkhagDetails(){
+        return $this->hasOne('App\Models\Dzongkhag', 'dzoID', 'dzoID');
+    }
 }
