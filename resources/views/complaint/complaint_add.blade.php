@@ -281,33 +281,33 @@ a.active {
                     </div>
                 </div>
 
-                <div class="know_person row">
+                <div class="know_person row" style="display:none">
                     <div class="col-sm-3">
                     <div class="form-group">
                         <label>Cid<span style="font-weight: bold; color: red;"></span></label>
-                        <input class="form-control" name="known_cid" type="text" required>
+                        <input class="form-control" name="known_cid" type="text" >
                     </div>
                    </div>
 
                    <div class="col-sm-3">
                     <div class="form-group">
                         <label>First Name<span style="font-weight: bold; color: red;"></span></label>
-                        <input class="form-control" name="first_name_known" type="text" required>
+                        <input class="form-control" name="first_name_known" type="text" >
                     </div>
                    </div>
 
 
                    <div class="col-sm-3">
                     <div class="form-group">
-                        <label>Middle Name<span style="font-weight: bold; color: red;"></span></label>
-                        <input class="form-control" name="last_name_known" type="text" required>
+                        <label>Last Name<span style="font-weight: bold; color: red;"></span></label>
+                        <input class="form-control" name="last_name_known" type="text" >
                     </div>
                    </div>
 
                    <div class="col-sm-3">
                     <div class="form-group">
                         <label>Employee Id<span style="font-weight: bold; color: red;"></span></label>
-                        <input class="form-control" name="employee_id_known" type="text" required>
+                        <input class="form-control" name="employee_id_known" type="text" >
                     </div>
                    </div>
 
@@ -317,7 +317,7 @@ a.active {
                         @foreach(@$gender as $key=> $value)    
                             <div class="form-check form-check-inline">
                               
-                              <input class="form-check-input" type="radio" id="genderInput_{{@$value->id}}" name="gender" value="{{@$value->id}}" @if(@$key==0) checked @endif>
+                              <input class="form-check-input" type="radio" id="genderInput_{{@$value->id}}" name="gender_known" value="{{@$value->id}}" @if(@$key==0) checked @endif>
                               <label class="form-check-label" for="genderInput">{{@$value->name}}</label>
                               
                             </div>
@@ -527,9 +527,9 @@ a.active {
     $('#complainantType').on('change',function(){
         var id = $(this).val();
         if(id==1){
-
+            $('.know_person').show();
         }else{
-            
+            $('.know_person').hide();
         }
     });
 </script>

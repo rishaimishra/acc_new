@@ -251,7 +251,7 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label>Complaint Type<span style="font-weight: bold; color: red;"></span></label>
-                         <select class="form-control" name="complainantType">
+                         <select class="form-control" name="complainantType" id="complainantType">
                                 <option value="">Select</option>
                                 @foreach(@$type as $value)
                                 <option value="{{@$value->id}}" @if(@$data->complainantType==@$value->id) selected @endif>{{@$value->complainttypeName}}</option>
@@ -260,6 +260,52 @@
                     </div>
                 </div>
 
+
+                <div class="row know_person " @if(@$data->complainantType==1) style="display:block;width:100%" @else style="display:none;width:100%" @endif>
+                    <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Cid<span style="font-weight: bold; color: red;"></span></label>
+                        <input class="form-control" name="known_cid" type="text" value="{{@$data->known_cid}}" >
+                    </div>
+                   </div>
+
+                   <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>First Name<span style="font-weight: bold; color: red;"></span></label>
+                        <input class="form-control" name="first_name_known" type="text" value="{{@$data->first_name_known}}">
+                    </div>
+                   </div>
+
+
+                   <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Last Name<span style="font-weight: bold; color: red;"></span></label>
+                        <input class="form-control" name="last_name_known" type="text" value="{{@$data->last_name_known}}">
+                    </div>
+                   </div>
+
+                   <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Employee Id<span style="font-weight: bold; color: red;"></span></label>
+                        <input class="form-control" name="employee_id_known" type="text" value="{{@$data->employee_id_known}}">
+                    </div>
+                   </div>
+
+                   <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Gender<span style="font-weight: bold; color: red;"></span></label>
+                        @foreach(@$gender as $key=> $value)    
+                            <div class="form-check form-check-inline">
+                              
+                              <input class="form-check-input" type="radio" id="genderInput_{{@$value->id}}" name="gender_known" value="{{@$value->id}}" @if(@$data->gender_known==@$value->id) checked @endif>
+                              <label class="form-check-label" for="genderInput">{{@$value->name}}</label>
+                              
+                            </div>
+                            @endforeach
+                    </div>
+                   </div>
+
+                </div>
 
                 <div class="col-sm-12">
                     <div class="form-group">
@@ -453,6 +499,16 @@
   })
 </script>
 
+<script type="text/javascript">
+    $('#complainantType').on('change',function(){
+        var id = $(this).val();
+        if(id==1){
+            $('.know_person').css('display','block');
+        }else{
+            $('.know_person').css('display','none');
+        }
+    });
+</script>
 
 
 

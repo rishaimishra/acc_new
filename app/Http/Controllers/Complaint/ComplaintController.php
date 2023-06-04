@@ -766,6 +766,16 @@ public function postPersonInvolved(Request $request)
             $compreg->complaintProcessingTypeID = $request['compliantProcessingType'];
             $compreg->AgainstAgencyCategory = $request['AgainstAgencyCategory'];
             $compreg->ComplaintRegisteredBy = auth()->user()->id;
+
+            if(@$request->complainantType==1)
+            {
+                $compreg->known_cid = $request->known_cid;
+                $compreg->first_name_known = $request->first_name_known;
+                $compreg->last_name_known = $request->last_name_known;
+                $compreg->employee_id_known = $request->employee_id_known;
+                $compreg->gender_known = $request->gender_known;
+            }
+
             if(@$request->AgainstAgencyCategory==1 || @$request->AgainstAgencyCategory==2)
             {
                 $compreg->AgainstAgency = $request['Against_agency'];
@@ -812,6 +822,7 @@ public function postPersonInvolved(Request $request)
         $data['village'] = Village::get();
         $data['type'] = complaintTypeModel::get();
         $data['agencyCategory'] = employeeCategoryModel::get();
+        $data['gender'] = GenderModel::get();
         $data['data'] = complaintRegistrationModel::where('complaintID',$id)->first();
         $data['received_users'] = complaintReceivedByModel::where('complaintID',$id)->pluck('userID')->toArray();
 
@@ -848,6 +859,20 @@ public function postPersonInvolved(Request $request)
                 }
 
 
+                if (@$request->complainantType==1) {
+                    $known_cid = $request->known_cid;
+                    $first_name_known = $request->first_name_known;
+                    $last_name_known = $request->last_name_known;
+                    $employee_id_known = $request->employee_id_known;
+                    $gender_known = $request->gender_known;
+                 }else{
+                    $known_cid = '';
+                    $first_name_known = '';
+                    $last_name_known = '';
+                    $employee_id_known = '';
+                    $gender_known = '';
+                 }
+
                 complaintRegistrationModel::where(['complaintRegNo' => $request['complaint_registration_no']])
                 ->update([
                     'complaintTitle' => $request['complaint_title'],
@@ -864,7 +889,16 @@ public function postPersonInvolved(Request $request)
                     'complaintProcessingTypeID' => $request['compliantProcessingType'],
                     'AgainstAgencyCategory' => $request['AgainstAgencyCategory'],
                     'AgainstAgency' => $AgainstAgency,
-                    'AgainstDepartment' => $AgainstDepartment
+                    'AgainstDepartment' => $AgainstDepartment,
+
+                    'known_cid' => $known_cid,
+                    'first_name_known' => $first_name_known,
+                    'last_name_known' => $last_name_known,
+                    'employee_id_known' => $employee_id_known,
+                    'gender_known' => $gender_known,
+                    
+
+
                 ]);
 
 

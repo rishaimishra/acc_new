@@ -248,7 +248,11 @@ Route::get('departmentFetch',[ComplaintController::class,'departmentFetch'])->na
 
 Route::get('complaint-register',[ComplaintController::class,'list'])->name('complaint-register.list');
 Route::get('manage-complaint-registration-edit/{id}',[ComplaintController::class,'complaintRegEdit'])->name('complaint.registration.edit.view');
+Route::get('complaint-register',[ComplaintController::class,'list'])->name('complaint-register.list');
+Route::get('manage-complaint-registration-edit/{id}',[ComplaintController::class,'complaintRegEdit'])->name('complaint.registration.edit.view');
 
+
+Route::post('manage-complaint-registration-edit/update-complaint',[ComplaintController::class,'updateComplaint'])->name('complaint.registration.edit.update');
 
 Route::post('manage-complaint-registration-edit/update-complaint',[ComplaintController::class,'updateComplaint'])->name('complaint.registration.edit.update');
 
