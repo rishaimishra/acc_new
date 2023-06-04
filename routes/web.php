@@ -20,6 +20,8 @@ use App\Http\Controllers\Complaint\ComplaintController;
 use App\Http\Controllers\Dzonkhag\DzonkhagController;
 use App\Http\Controllers\Gewog\GewogController;
 use App\Http\Controllers\Village\VillageController;
+use App\Http\Controllers\Constituency\ConstituencyController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -253,6 +255,9 @@ Route::get('get-village-onchange-gewog',[ComplaintController::class,'getVillage'
 Route::resource('dzonkhag', DzonkhagController::class);
 Route::resource('gewog', GewogController::class);
 Route::resource('village', VillageController::class);
+Route::resource('constituency', ConstituencyController::class);
+
 Route::get('dzonkhags/{id}',[DzonkhagController::class,'deleteDz'])->name('dzonkhag.delete');
 Route::get('gewogs/{id}',[GewogController::class,'deleteGz'])->name('gewog.delete');
 Route::get('villages/{id}',[VillageController::class,'deleteVj'])->name('village.delete');
+Route::get('constituencys/{id}',[ConstituencyController::class,'deleteConsti'])->name('consti.delete');
