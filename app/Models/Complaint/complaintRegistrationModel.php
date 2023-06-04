@@ -21,4 +21,12 @@ class complaintRegistrationModel extends Model
     {
         return $this->hasOne('App\Models\Complaint\complaintTypeModel', 'id', 'complainantType');
     }
+
+    public function complaintreceivedByRelation()
+    {
+        return $this->hasMany('App\Models\Complaint\complaintReceivedByModel', 'complaintID', 'complaintID');
+    }
+
+
+    
 }

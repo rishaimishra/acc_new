@@ -29,6 +29,13 @@ use Alert;
 use Carbon\Carbon;
 class ComplaintController extends Controller
 {
+
+    public function list()
+    {
+        $data = [];
+        $data['data'] = complaintRegistrationModel::orderBy('complaintID','desc')->get();
+        return view('complaint.list',$data);
+    }
     // function-name : attachmentView
     // description : to get the complait related attachments **
 
@@ -718,6 +725,8 @@ public function postPersonInvolved(Request $request)
         $newOccurrencePeriodFrom = $request->complaintOccurrenceFrom;
         $newOccurrencePeriodTill = $request->complaintOccurrenceTill;
 
+        // return $newOccurrencePeriodTill;
+
         // $this->validate($request, [
         //         'complaint_registration_no' => 'required|unique:cr_tblcomplaintregistration,complaintRegNo',
         //         'complaint_title' => 'required',
@@ -738,13 +747,16 @@ public function postPersonInvolved(Request $request)
 
             if ($request['complaintOccurrenceFrom']) {
                 $compreg->occurrencePeriodFrom = $newOccurrencePeriodFrom;
-            }
+            }else{
             $compreg->occurrencePeriodFrom = '';
+            }
 
             if ($request['complaintOccurrenceTill']) {
                 $compreg->occurrencePeriodTill = $newOccurrencePeriodTill;
+            }else{
+            $compreg->occurrencePeriodTill = '';    
             }
-            $compreg->occurrencePeriodTill = '';
+            
 
             $compreg->placeOfOccurrenceDzongkhagID = $request['dzongkhag'];
             $compreg->placeOfOccurrenceGewogID = $request['gewog'];
@@ -781,8 +793,96 @@ public function postPersonInvolved(Request $request)
 
 
             Alert::success('Complaint Registered Successfully');
-            return redirect()->back();
+            return redirect()->route('attachment.view.complaint',['id'=>$complaint->complaintID]);
 
+    }
+
+
+
+    public function complaintRegEdit($id)
+    {
+        $data = [];
+        $data['id'] = $id;
+        $data['employe'] = User::get();
+        $data['processing'] = pl_complaintProcessingType_Model::get();
+        $data['mode'] = complaintModeModel::get();
+        $data['dzongkhag'] = Dzongkhag::get();
+        $data['gewog'] = Gewog::get();
+        $data['village'] = Village::get();
+        $data['type'] = complaintTypeModel::get();
+        $data['agencyCategory'] = employeeCategoryModel::get();
+        $data['data'] = complaintRegistrationModel::where('complaintID',$id)->first();
+        $data['received_users'] = complaintReceivedByModel::where('complaintID',$id)->pluck('userID')->toArray();
+
+        $data['deparment'] = agencyModel::where(['isDelete' => 0])->get();
+        if (@$data['data']->AgainstAgencyCategory=="1" || @$data['data']->AgainstAgencyCategory=="2") {
+            $data['constituency'] = constituencyModel::where('dzoID',@$data['data']->AgainstAgency)->get();
+            // return $data['constituency']; 
+        }else{
+            $data['constituency'] = constituencyModel::get();
+        }
+
+        $data['agency'] = agencyModel::where(['agencyCategoryID' => 22, 'parentAgencyID' => 0, 'isDelete' => 0])->orderBy('agencyName', 'asc')->get();
+        
+        return view('complaint.complaint_edit',$data);
+    }
+
+    public function updateComplaint(Request $request)
+    {   
+
+                $newcomplaintDateTime = $request->complaintDateTime;
+                $newOccurrencePeriodFrom = $request->complaintOccurrenceFrom;
+                $newOccurrencePeriodTill = $request->complaintOccurrenceTill;
+
+                if(@$request->AgainstAgencyCategory==1 || @$request->AgainstAgencyCategory==2)
+                {
+                $AgainstAgency = $request['Against_agency'];
+                $AgainstDepartment = $request['Against_department'];
+                }elseif(@$request->AgainstAgencyCategory==22){
+                $AgainstAgency = $request['agency_againt_twenty_two'];
+                $AgainstDepartment = $request['Against_department_twenty_two'];
+                }else{
+                $AgainstAgency = '';
+                $AgainstDepartment = $request['department_others'];
+                }
+
+
+                complaintRegistrationModel::where(['complaintRegNo' => $request['complaint_registration_no']])
+                ->update([
+                    'complaintTitle' => $request['complaint_title'],
+                    'complainantType' => $request['complainantType'],
+                    'complaintDateTime' => $newcomplaintDateTime,
+                    'complaintDetails' => $request['complaintDetail'],
+                    'occurrencePeriodFrom' => $newOccurrencePeriodFrom,
+                    'occurrencePeriodTill' => $newOccurrencePeriodTill,
+                    'placeOfOccurrenceDzongkhagID' => $request['dzongkhag'],
+                    'placeOfOccurrenceGewogID' => $request['gewog'],
+                    'placeOfOccurrenceVillageID' => $request['village'],
+//                    'complaintReceivedByUID' => $request['ComplaintReceivedBy'],
+                    'modeID' => $request['complaintMode'],
+                    'complaintProcessingTypeID' => $request['compliantProcessingType'],
+                    'AgainstAgencyCategory' => $request['AgainstAgencyCategory'],
+                    'AgainstAgency' => $AgainstAgency,
+                    'AgainstDepartment' => $AgainstDepartment
+                ]);
+
+
+            $complaint = complaintRegistrationModel::where(['complaintRegNo' => $request['complaint_registration_no']])->first();
+
+            if (isset($request['ComplaintReceivedBy'])) {
+
+                complaintReceivedByModel::where(['complaintID' => $complaint->complaintID])->delete();
+
+                foreach ($request['ComplaintReceivedBy'] as $receivedByUserID) {
+                    $receiver = new complaintReceivedByModel;
+                    $receiver->complaintID = $complaint->complaintID;
+                    $receiver->userID = $receivedByUserID;
+                    $receiver->save();
+                }
+            }
+
+            Alert::success('Complaint Updated Successfully');
+            return redirect()->back();
     }
 
 
