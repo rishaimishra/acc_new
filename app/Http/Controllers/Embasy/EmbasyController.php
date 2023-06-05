@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Dzonkhag;
+namespace App\Http\Controllers\Embasy;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Dzongkhag;
+use App\Models\Embassy;
 use Redirect;
 use Alert;
 
-
-class DzonkhagController extends Controller
+class EmbasyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +18,8 @@ class DzonkhagController extends Controller
     public function index()
     {
         $data = [];
-        $data['data'] = Dzongkhag::orderBy('dzoID','desc')->where('isDelete',0)->get();
-        return view('Dzonkhag.list', $data);
+        $data['data'] = Embassy::orderBy('embassyID','desc')->where('isDelete',0)->get();
+        return view('Embassy.list', $data);
     }
 
     /**
@@ -30,7 +29,7 @@ class DzonkhagController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -41,14 +40,14 @@ class DzonkhagController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-        $dzonkhag = new Dzongkhag();
-        $dzonkhag->dzoName = $request->dzoName;
-        $dzonkhag->isDelete = 0;
-        $dzonkhag->save();
-
-        Alert::success('You\'ve Successfully Added A Dzonkhag ');
-        return Redirect::back();
+        //  dd($request);
+         $dzonkhag = new Embassy();
+         $dzonkhag->embassyName = $request->embassyName;
+         $dzonkhag->isDelete = 0;
+         $dzonkhag->save();
+ 
+         Alert::success('You\'ve Successfully Added A Dzonkhag ');
+         return Redirect::back();
     }
 
     /**
@@ -91,15 +90,11 @@ class DzonkhagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteEmbassy($id)
     {
-        dd($id);
-    }
-
-    public function deleteDz($id){
-        // dd($id);
-        Dzongkhag::where(['dzoID' => $id])->delete();
-        Alert::success(' Dzongkhag Deleted Successfully');
-        return redirect()->back();
+         // dd($id);
+         Embassy::where(['embassyID' => $id])->delete();
+         Alert::success(' Embassy Deleted Successfully');
+         return redirect()->back();
     }
 }

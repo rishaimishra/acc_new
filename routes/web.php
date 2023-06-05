@@ -21,6 +21,7 @@ use App\Http\Controllers\Dzonkhag\DzonkhagController;
 use App\Http\Controllers\Gewog\GewogController;
 use App\Http\Controllers\Village\VillageController;
 use App\Http\Controllers\Constituency\ConstituencyController;
+use App\Http\Controllers\Embasy\EmbasyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -271,8 +272,11 @@ Route::resource('dzonkhag', DzonkhagController::class);
 Route::resource('gewog', GewogController::class);
 Route::resource('village', VillageController::class);
 Route::resource('constituency', ConstituencyController::class);
+Route::resource('embassy', EmbasyController::class);
+
 
 Route::get('dzonkhags/{id}',[DzonkhagController::class,'deleteDz'])->name('dzonkhag.delete');
 Route::get('gewogs/{id}',[GewogController::class,'deleteGz'])->name('gewog.delete');
 Route::get('villages/{id}',[VillageController::class,'deleteVj'])->name('village.delete');
 Route::get('constituencys/{id}',[ConstituencyController::class,'deleteConsti'])->name('consti.delete');
+Route::get('embassys/{id}',[EmbasyController::class,'deleteEmbassy'])->name('embasy.delete');
