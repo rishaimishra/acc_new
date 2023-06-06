@@ -271,6 +271,7 @@ Route::resource('embassy', EmbasyController::class);
 
 
 Route::get('dzonkhags/{id}',[DzonkhagController::class,'deleteDz'])->name('dzonkhag.delete');
+Route::post('dzonkhags-edit',[DzonkhagController::class,'EditDz'])->name('dzonkhag.edit');
 Route::get('gewogs/{id}',[GewogController::class,'deleteGz'])->name('gewog.delete');
 Route::get('villages/{id}',[VillageController::class,'deleteVj'])->name('village.delete');
 Route::get('constituencys/{id}',[ConstituencyController::class,'deleteConsti'])->name('consti.delete');
