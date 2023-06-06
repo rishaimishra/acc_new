@@ -281,3 +281,4 @@ Route::get('gewogs/{id}',[GewogController::class,'deleteGz'])->name('gewog.delet
 Route::get('villages/{id}',[VillageController::class,'deleteVj'])->name('village.delete');
 Route::get('constituencys/{id}',[ConstituencyController::class,'deleteConsti'])->name('consti.delete');
 Route::get('embassys/{id}',[EmbasyController::class,'deleteEmbassy'])->name('embasy.delete');
+Route::post('embassys-edit',[EmbasyController::class,'EditEmbassy'])->name('embasy.edit');
