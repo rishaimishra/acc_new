@@ -258,6 +258,11 @@ Route::post('manage-complaint-registration-edit/update-complaint',[ComplaintCont
 Route::post('manage-complaint-registration-edit/update-complaint',[ComplaintController::class,'updateComplaint'])->name('complaint.registration.edit.update');
 
 Route::post('SaveComplaintRegistration',[ComplaintController::class,'SaveComplaintRegistration'])->name('SaveComplaintRegistration');
+
+
+Route::get('complaint-register',[ComplaintController::class,'list'])->name('complaint-register.list');
+Route::get('manage-complaint-registration-edit/{id}',[ComplaintController::class,'complaintRegEdit'])->name('complaint.registration.edit.view');
+Route::post('manage-complaint-registration-edit/update-complaint',[ComplaintController::class,'updateComplaint'])->name('complaint.registration.edit.update');
 // dependency-dropdown
 Route::get('get-gewog-onchange-dzongkhag',[ComplaintController::class,'getGewog'])->name('get.gewog.onchange.dzongkhag');
 Route::get('get-village-onchange-gewog',[ComplaintController::class,'getVillage'])->name('get.village.onchange.gewog');
