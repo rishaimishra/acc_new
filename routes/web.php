@@ -27,6 +27,7 @@ use App\Http\Controllers\ComplaintMaster\ComplaintType;
 use App\Http\Controllers\ComplaintMaster\SourceController;
 use App\Http\Controllers\ComplaintMaster\PersonCategory;
 use App\Http\Controllers\AssignComplaint\AssignComplaintController;
+use App\Http\Controllers\EmpCat\EmpCatController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -283,6 +284,7 @@ Route::resource('gewog', GewogController::class);
 Route::resource('village', VillageController::class);
 Route::resource('constituency', ConstituencyController::class);
 Route::resource('embassy', EmbasyController::class);
+Route::resource('emp-category', EmpCatController::class);
 
 
 Route::get('dzonkhags/{id}',[DzonkhagController::class,'deleteDz'])->name('dzonkhag.delete');
