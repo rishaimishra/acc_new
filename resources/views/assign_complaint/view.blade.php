@@ -21,7 +21,7 @@
 
         <ul class="nav nav-pills mb-3 shadow-sm" id="pills-tab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active btn btn-info" href="{{route('complaint.registration.edit.view',['id'=>@$id])}}">Complaint Details</a>
+          <a class="nav-link active btn btn-info" href="{{route('complaint.view.details',['id'=>@$id])}}">Complaint Details</a>
         </li>
         <li class="nav-item">
           <a class="nav-link "  href="{{route('attachment.view.complaint',['id'=>@$id])}}">Attachment Details</a>
@@ -97,7 +97,8 @@
                 </div>
 
                 
-         <div class="col-sm-12">        
+         <div class="col-sm-12">  
+        @if(@$data->assign_status=="N")       
         <form method="post" action="{{route('assign.complaint.post')}}" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="complaintID" value="{{@$id}}">
@@ -148,10 +149,78 @@
                 </div>
 
                 
-                <div class="col-sm-6"></div>
+                <div class="col-sm-12"></div>
                 <div class="col-sm-6"><button type="submit" class="btn btn-info">Save</button></div>
             </div>
         </form>
+
+        @else
+
+            <form method="post" action="{{route('assign.complaint.post.update')}}" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="complaintID" value="{{@$id}}">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Assign To<span style="font-weight: bold; color: red;">*</span></label>
+                            <select class="form-control" name="assign_to" id="assign_to">
+                                <option value="H" @if(@$data->assign_to=="H") selected @endif>Head Quater</option>
+                                <option value="R" @if(@$data->assign_to=="R") selected @endif>Regional Office</option>
+                            </select>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12" id="assignUsers_div"  @if(@$data->assign_to=="H") style="display:block" @else style="display:none" @endif>
+                    <div class="form-group">
+                        <label>Assign Users<span style="font-weight: bold; color: red;">*</span></label>
+                            <br>
+                            <select class="select2-multiple form-control" style="width:100%" name="assignUsers[]" multiple="multiple"
+                            id="select2Multiple">
+                            @foreach(@$user as $value)
+                            <option value="{{@$value->id}}" {{ (in_array($value->id, @$assignUsers)) ? 'selected' : '' }}>{{@$value->name}}</option>
+                            @endforeach              
+                          </select>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12" id="regional_office_div" @if(@$data->assign_to=="R") style="display:block" @else style="display:none" @endif>
+                    <div class="form-group">
+                        <label>Regional Office<span style="font-weight: bold; color: red;">*</span></label>
+                            <select class="form-control" name="regional_office">
+                                @foreach(@$regional_office as $value)
+                                <option value="{{@$value->id}}" @if(@$data->regional_office==@$value->id) selected @endif>{{@$value->name}}</option>
+                                @endforeach
+                            </select>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Reason<span style="font-weight: bold; color: red;">*</span></label>
+                            <textarea class="form-control" required  type="text" name="reason_change"> {{@$data->reason_change}} </textarea>
+                    </div>
+                </div>
+
+
+
+                <div class="clearfix"> </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Instructions<span style="font-weight: bold; color: red;">*</span></label>
+                            <textarea class="form-control" required  type="text" name="instruction"> {{@$data->instruction}} </textarea>
+                    </div>
+                </div>
+
+                
+                <div class="col-sm-12"></div>
+                <div class="col-sm-6"><button type="submit" class="btn btn-info">Reassign</button></div>
+            </div>
+        </form>
+
+        @endif
     </div>
 
 

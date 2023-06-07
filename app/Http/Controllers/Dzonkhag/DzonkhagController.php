@@ -102,4 +102,16 @@ class DzonkhagController extends Controller
         Alert::success(' Dzongkhag Deleted Successfully');
         return redirect()->back();
     }
+
+    public function EditDz(Request $request){
+            // dd(@$request->dzoID);
+            $person = new Dzongkhag;
+            $person->where(['dzoID' => $request->dzoID])->update([
+                'dzoName' => $request->dzoName
+            ]);
+
+            Alert::success(' Dzongkhag Updated Successfully');
+            return redirect()->back();
+        }
+
 }

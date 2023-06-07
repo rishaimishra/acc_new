@@ -97,4 +97,15 @@ class EmbasyController extends Controller
          Alert::success(' Embassy Deleted Successfully');
          return redirect()->back();
     }
+
+    public function EditEmbassy(Request $request){
+        // dd(@$request);
+        $person = new Embassy;
+        $person->where(['embassyID' => $request->embassyID])->update([
+            'embassyName' => $request->embassyName
+        ]);
+
+        Alert::success(' Embassy Updated Successfully');
+        return redirect()->back();
+    }
 }

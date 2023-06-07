@@ -286,6 +286,7 @@ Route::resource('embassy', EmbasyController::class);
 
 
 Route::get('dzonkhags/{id}',[DzonkhagController::class,'deleteDz'])->name('dzonkhag.delete');
+Route::post('dzonkhags-edit',[DzonkhagController::class,'EditDz'])->name('dzonkhag.edit');
 Route::get('gewogs/{id}',[GewogController::class,'deleteGz'])->name('gewog.delete');
 Route::get('villages/{id}',[VillageController::class,'deleteVj'])->name('village.delete');
 Route::get('constituencys/{id}',[ConstituencyController::class,'deleteConsti'])->name('consti.delete');
@@ -317,3 +318,7 @@ Route::get('person-category/delete/{id}',[PersonCategory::class,'delete'])->name
 Route::get('assign-complaint',[AssignComplaintController::class,'list'])->name('assign.complaint');
 Route::get('complaint-view-details/{id}',[AssignComplaintController::class,'viewDetails'])->name('complaint.view.details');
 Route::post('assign-complaint-post',[AssignComplaintController::class,'postAssign'])->name('assign.complaint.post');
+Route::post('assign-complaint-post-update',[AssignComplaintController::class,'postAssignUpdate'])->name('assign.complaint.post.update');
+
+
+Route::post('embassys-edit',[EmbasyController::class,'EditEmbassy'])->name('embasy.edit');

@@ -27,11 +27,17 @@ class AssignComplaintController extends Controller
         $data['received_users'] = complaintReceivedByModel::where('complaintID',$id)->get();
         $data['user'] = User::get();
         $data['regional_office'] = RegionalOffice::get();
+        $data['assignUsers'] = ComplaintAssignUser::where('complaint_id',$id)->pluck('user_id')->toArray();
         return view('assign_complaint.view',$data);
     }
 
     public function postAssign(Request $request)
-    {
+    {   
+
+        if (@$request->instruction=="") {
+           Alert::error('Please Enter Instruction');  
+           return redirect()->back();
+        }
         
         if (@$request->assign_to=="H") {
             $regional_office = '';
@@ -49,8 +55,8 @@ class AssignComplaintController extends Controller
             if (isset($request['assignUsers'])) {
                 foreach ($request['assignUsers'] as $receivedByUserID) {
                     $receiver = new ComplaintAssignUser;
-                    $receiver->complaintID = $complaint->complaintID;
-                    $receiver->userID = $receivedByUserID;
+                    $receiver->complaint_id  = $request->complaintID;
+                    $receiver->user_id = $receivedByUserID;
                     $receiver->save();
                 }
             }
@@ -60,5 +66,52 @@ class AssignComplaintController extends Controller
         return redirect()->back();
 
 
+    }
+
+
+    public function postAssignUpdate(Request $request)
+    {
+
+        if (@$request->reason_change=="") {
+           Alert::error('Please Enter Reason Of Re-Assign');  
+           return redirect()->back();
+        }
+
+        if (@$request->instruction=="") {
+           Alert::error('Please Enter Instruction');  
+           return redirect()->back();
+        }
+
+
+
+        if (@$request->assign_to=="H") {
+            $regional_office = '';
+        }else{
+            $regional_office =@$request->regional_office;
+        }
+        complaintRegistrationModel::where('complaintID',$request->complaintID)->update([
+            'assign_to'=>$request->assign_to,
+            'regional_office'=>$regional_office,
+            'instruction'=>$request->instruction,
+            'reason_change'=>$request->reason_change,
+            'assign_status'=>'Y',
+        ]);
+
+        if (@$request->assign_to=="H") {
+            if (isset($request['assignUsers'])) {
+                foreach ($request['assignUsers'] as $receivedByUserID) {
+                    $receiver = new ComplaintAssignUser;
+                    $receiver->complaint_id = $request->complaintID;
+                    $receiver->user_id = $receivedByUserID;
+                    $receiver->save();
+                }
+            }
+        }else{
+            $ids = explode(',',$request->complaintID);
+            ComplaintAssignUser::where('complaint_id',$ids)->delete();
+        }
+
+        Alert::success('Complaint Re-Assigned Successfully');  
+        return redirect()->back();
     }
 }
