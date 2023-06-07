@@ -27,6 +27,26 @@ class complaintRegistrationModel extends Model
         return $this->hasMany('App\Models\Complaint\complaintReceivedByModel', 'complaintID', 'complaintID');
     }
 
+     public function complaintProcessingTypeRelation()
+    {
+        return $this->hasOne('App\Models\Complaint\pl_complaintProcessingType_Model', 'complaintProcessingTypeID', 'complaintProcessingTypeID');
+    }
+
+    public function dzongkhagrelation()
+    {
+        return $this->hasOne('App\Models\Dzongkhag', 'dzoID', 'placeOfOccurrenceDzongkhagID');
+    }
+
+
+    public function gewogrelation()
+    {
+        return $this->hasOne('App\Models\Gewog', 'gewogID', 'placeOfOccurrenceGewogID');
+    }
+
+    public function villagerelation()
+    {
+        return $this->hasOne('App\Models\Village', 'villageID', 'placeOfOccurrenceVillageID');
+    }
 
     
 }

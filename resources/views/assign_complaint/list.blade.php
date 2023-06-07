@@ -20,12 +20,11 @@ href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTabl
                                 <thead>
                                     <tr>
                                         <th>Complaint Id</th>
-                                        <th>Date</th>
-                                        <th>Registration No</th>
-                                        <th>Title</th>
-                                        <th>Occurrence From</th>
-                                        <th>Occurrence Till</th>
-                                        <th>Mode</th>                            
+                                        <th>Complaint Registration No.</th>
+                                        <th>Complaint Registration Date</th>
+                                        <th>Complaint Tile</th>
+                                        <th>Mode</th>
+                                        <th>Status</th>
                                         <th>Action</th>            
                                     </tr>
                                 </thead>
@@ -33,15 +32,20 @@ href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTabl
                                        @if(@$data->isNotEmpty())
                                        @foreach(@$data as $value)
                                        <tr>
-                                            <td>{{@$value->complaintID}}</td>
-                                           <td>{{@$value->complaintDateTime}}</td>
+                                           <td>{{@$value->complaintID}}</td>
                                            <td>{{@$value->complaintRegNo}}</td>
+                                           <td>{{@$value->complaintDateTime}}</td>
                                            <td>{{@$value->complaintTitle}}</td>
-                                           <td>{{@$value->occurrencePeriodFrom}}</td>
-                                           <td>{{@$value->occurrencePeriodTill}}</td>
                                            <td>{{@$value->complaintmoderelation->modeName}}</td>
+
+                                           <td>@if(@$value->assign_status=="N") Registered @else Assigned  @endif</td>
+
                                            <td>
-                                               <a href="{{route('complaint.registration.edit.view',['id'=>@$value->complaintID])}}" class="btn btn-info">Edit</a>
+                                              @if(@$value->assign_status=="N")
+                                               <a href="{{route('complaint.view.details',['id'=>@$value->complaintID])}}" class="btn btn-info">Assign</a>
+                                               @else
+                                               <a href="{{route('complaint.view.details',['id'=>@$value->complaintID])}}" class="btn btn-info">Reassign</a>
+                                               @endif
                                            </td>
 
                                        </tr>

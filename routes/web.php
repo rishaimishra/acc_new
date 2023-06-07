@@ -22,7 +22,11 @@ use App\Http\Controllers\Gewog\GewogController;
 use App\Http\Controllers\Village\VillageController;
 use App\Http\Controllers\Constituency\ConstituencyController;
 use App\Http\Controllers\Embasy\EmbasyController;
-
+use App\Http\Controllers\ComplaintMaster\ComplaintMasterController;
+use App\Http\Controllers\ComplaintMaster\ComplaintType;
+use App\Http\Controllers\ComplaintMaster\SourceController;
+use App\Http\Controllers\ComplaintMaster\PersonCategory;
+use App\Http\Controllers\AssignComplaint\AssignComplaintController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -260,6 +264,12 @@ Route::post('manage-complaint-registration-edit/update-complaint',[ComplaintCont
 Route::post('SaveComplaintRegistration',[ComplaintController::class,'SaveComplaintRegistration'])->name('SaveComplaintRegistration');
 
 
+// Route::get('complaint-register',[ComplaintController::class,'list'])->name('complaint-register.list');
+// Route::get('manage-complaint-registration-edit/{id}',[ComplaintController::class,'complaintRegEdit'])->name('complaint.registration.edit.view');
+// Route::post('manage-complaint-registration-edit/update-complaint',[ComplaintController::class,'updateComplaint'])->name('complaint.registration.edit.update');
+
+
+
 Route::get('complaint-register',[ComplaintController::class,'list'])->name('complaint-register.list');
 Route::get('manage-complaint-registration-edit/{id}',[ComplaintController::class,'complaintRegEdit'])->name('complaint.registration.edit.view');
 Route::post('manage-complaint-registration-edit/update-complaint',[ComplaintController::class,'updateComplaint'])->name('complaint.registration.edit.update');
@@ -280,3 +290,30 @@ Route::get('gewogs/{id}',[GewogController::class,'deleteGz'])->name('gewog.delet
 Route::get('villages/{id}',[VillageController::class,'deleteVj'])->name('village.delete');
 Route::get('constituencys/{id}',[ConstituencyController::class,'deleteConsti'])->name('consti.delete');
 Route::get('embassys/{id}',[EmbasyController::class,'deleteEmbassy'])->name('embasy.delete');
+
+
+// complaint-masters
+Route::get('complaint-mode',[ComplaintMasterController::class,'list'])->name('complaint-mode-master');
+Route::post('complaint-mode/add',[ComplaintMasterController::class,'add'])->name('complaint-mode-master.add');
+Route::get('complaint-mode/delete/{id}',[ComplaintMasterController::class,'delete'])->name('complaint-mode-master.delete');
+
+// complaint-type
+Route::get('complaint-type',[ComplaintType::class,'list'])->name('complaint-type-master');
+Route::post('complaint-type/add',[ComplaintType::class,'add'])->name('complaint-type-master.add');
+Route::get('complaint-type/delete/{id}',[ComplaintType::class,'delete'])->name('complaint-type-master.delete');
+
+// source
+Route::get('source-complaint',[SourceController::class,'list'])->name('source-complaint-master');
+Route::post('source-complaint/add',[SourceController::class,'add'])->name('source-complaint-master.add');
+Route::get('source-complaint/delete/{id}',[SourceController::class,'delete'])->name('source-complaint-master.delete');
+
+// person-category
+Route::get('person-category',[PersonCategory::class,'list'])->name('person-category-master');
+Route::post('person-category/add',[PersonCategory::class,'add'])->name('person-category-master.add');
+Route::get('person-category/delete/{id}',[PersonCategory::class,'delete'])->name('person-category-master.delete');
+
+
+// assign-complaint
+Route::get('assign-complaint',[AssignComplaintController::class,'list'])->name('assign.complaint');
+Route::get('complaint-view-details/{id}',[AssignComplaintController::class,'viewDetails'])->name('complaint.view.details');
+Route::post('assign-complaint-post',[AssignComplaintController::class,'postAssign'])->name('assign.complaint.post');
