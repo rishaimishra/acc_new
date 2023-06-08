@@ -67,7 +67,7 @@
                                                     </a>
 
                                                     <a class="btn btn-xs btn-danger"
-                                                        href="{{ route('dzonkhag.delete', ['id' => @$att->empCategoryID]) }}"
+                                                        href="{{ route('emp.category.delete', ['id' => @$att->empCategoryID]) }}"
                                                         onclick="return confirm('Are you sure , you want to delete this attachment ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
@@ -95,17 +95,17 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Dzongkhag</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Add Employee Category</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('dzonkhag.store') }}">@csrf
+                            <form method="post" action="{{ route('emp-category.store') }}">@csrf
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Dzongkhag</label>
+                                    <label for="exampleInputEmail1">Employee Category</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" name="empCategoryName"
-                                        aria-describedby="emailHelp" placeholder="Dzongkhag Name">
+                                        aria-describedby="emailHelp" placeholder="Employee Category Name">
                                     {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
                                 </div>
 
@@ -127,18 +127,18 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Dzongkhag</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Employee Category</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('dzonkhag.edit') }}">@csrf
+                            <form method="post" action="{{ route('emp.cat.edit') }}">@csrf
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Dzongkhag</label>
-                                    <input type="text" class="form-control" id="dzongKhagId" name="empCategoryName"
-                                        aria-describedby="emailHelp" placeholder="Dzongkhag Name">
-                                    <input type="hidden" id="DzoId" name="empCategoryID">
+                                    <label for="exampleInputEmail1">Employee Category</label>
+                                    <input type="text" class="form-control" id="EmpCatId" name="empCategoryName"
+                                        aria-describedby="emailHelp" placeholder="Employee Category Name">
+                                    <input type="hidden" id="EmctId" name="empCategoryID">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -179,8 +179,8 @@
             let data = $(`.row-class-${id}`).attr('data-row-data');
             console.log(data);
             $('#exampleModaEdit').modal('show')
-            document.getElementById("dzongKhagId").value = data;
-            document.getElementById("DzoId").value = id;
+            document.getElementById("EmpCatId").value = data;
+            document.getElementById("EmctId").value = id;
 
         }
     </script>

@@ -40,7 +40,14 @@ class EmpCatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //  dd($request);
+         $dzonkhag = new EmpCategory();
+         $dzonkhag->empCategoryName = $request->empCategoryName;
+         $dzonkhag->isDelete = 0;
+         $dzonkhag->save();
+ 
+         Alert::success('You\'ve Successfully Added A Employee Category ');
+         return Redirect::back();
     }
 
     /**
@@ -86,5 +93,22 @@ class EmpCatController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function deleteEmpCat($id){
+        // dd($id);
+        EmpCategory::where(['empCategoryID' => $id])->delete();
+        Alert::success(' Employee Category Deleted Successfully');
+        return redirect()->back();
+    }
+
+    public function EditEmpCat(Request $request){
+        $person = new EmpCategory;
+        $person->where(['empCategoryID' => $request->empCategoryID])->update([
+            'empCategoryName' => $request->empCategoryName
+        ]);
+
+        Alert::success(' Employee Category Updated Successfully');
+        return redirect()->back();
     }
 }

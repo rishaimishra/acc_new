@@ -293,6 +293,7 @@ Route::get('gewogs/{id}',[GewogController::class,'deleteGz'])->name('gewog.delet
 Route::get('villages/{id}',[VillageController::class,'deleteVj'])->name('village.delete');
 Route::get('constituencys/{id}',[ConstituencyController::class,'deleteConsti'])->name('consti.delete');
 Route::get('embassys/{id}',[EmbasyController::class,'deleteEmbassy'])->name('embasy.delete');
+Route::get('employee-cat/{id}',[EmpCatController::class,'deleteEmpCat'])->name('emp.category.delete');
 
 
 // complaint-masters
@@ -324,3 +325,4 @@ Route::post('assign-complaint-post-update',[AssignComplaintController::class,'po
 
 
 Route::post('embassys-edit',[EmbasyController::class,'EditEmbassy'])->name('embasy.edit');
+Route::post('empcategory-edit',[EmpCatController::class,'EditEmpCat'])->name('emp.cat.edit');
