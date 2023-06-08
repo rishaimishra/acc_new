@@ -326,3 +326,4 @@ Route::post('assign-complaint-post-update',[AssignComplaintController::class,'po
 
 Route::post('embassys-edit',[EmbasyController::class,'EditEmbassy'])->name('embasy.edit');
 Route::post('empcategory-edit',[EmpCatController::class,'EditEmpCat'])->name('emp.cat.edit');
+Route::post('gewog-edit',[GewogController::class,'EditGewog'])->name('gewog.edit.update');

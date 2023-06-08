@@ -109,4 +109,16 @@ class GewogController extends Controller
         Alert::success(' Gewog Deleted Successfully');
         return redirect()->back();
     }
+
+    public function EditGewog(Request $request){
+        // dd($request);
+        $person = new Gewog;
+        $person->where(['gewogID' => $request->gewogID])->update([
+            'DzoID' => $request->DzoID,
+            'gewogName' => $request->gewogName
+        ]);
+
+        Alert::success(' Gewog Updated Successfully');
+        return redirect()->back();
+    }
 }
