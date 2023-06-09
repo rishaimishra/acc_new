@@ -327,3 +327,6 @@ Route::post('assign-complaint-post-update',[AssignComplaintController::class,'po
 Route::post('embassys-edit',[EmbasyController::class,'EditEmbassy'])->name('embasy.edit');
 Route::post('empcategory-edit',[EmpCatController::class,'EditEmpCat'])->name('emp.cat.edit');
 Route::post('gewog-edit',[GewogController::class,'EditGewog'])->name('gewog.edit.update');
+Route::post('village-edit',[VillageController::class,'EditVillage'])->name('village.edit.update');
+Route::get('gewog-list-per-dzonkhag/{id}',[VillageController::class,'gewoglistAsperDzongkhag'])->name('gewog.list.dz');
+Route::post('constituency-edit',[ConstituencyController::class,'EditConstituency'])->name('constituency.edit.update');

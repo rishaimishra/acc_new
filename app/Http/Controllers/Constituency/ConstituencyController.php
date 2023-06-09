@@ -107,4 +107,16 @@ class ConstituencyController extends Controller
         Alert::success(' constituency Deleted Successfully');
         return redirect()->back();
     }
+
+    public function EditConstituency(Request $request){
+        // dd($request);
+        $person = new constituencyModel;
+        $person->where(['constituencyID' => $request->constituencyID])->update([
+            'DzoID' => $request->DzoID,
+            'constituencyName' => $request->constituencyName
+        ]);
+
+        Alert::success(' constituency Updated Successfully');
+        return redirect()->back();
+    }
 }

@@ -63,12 +63,12 @@
                                                     <a type="button"
                                                         class="btn btn-xs btn-primary row-class-{{ @$att->gewogID }}"
                                                         data-row-data='{{ @$att->gewogName }}' data-toggle="modal"
-                                                        onclick="openEditModalEditGewog({{ @$att->gewogID}},`{{@$att->getDzongkhagDetails->dzoID }}`)">
-                                                       Edit
+                                                        onclick="openEditModalEditGewog({{ @$att->gewogID }},`{{ @$att->getDzongkhagDetails->dzoID }}`)">
+                                                        Edit
                                                     </a>
                                                     <a class="btn btn-xs btn-danger"
                                                         href="{{ route('gewog.delete', ['id' => @$att->gewogID]) }}"
-                                                        onclick="return confirm('Are you sure , you want to delete this attachment ? ')"><i
+                                                        onclick="return confirm('Are you sure , you want to delete this gewog ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
                                                     </a>
@@ -102,12 +102,6 @@
                         </div>
                         <div class="modal-body">
                             <form method="post" action="{{ route('gewog.store') }}">@csrf
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Gewog</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="gewogName"
-                                        aria-describedby="emailHelp" placeholder="Gewog Name">
-                                    {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                                </div>
 
                                 <div class="form-group">
                                     <select class="form-control" aria-label="Default select example" name="DzoID">
@@ -117,6 +111,15 @@
                                         @endforeach
                                     </select>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Gewog</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="gewogName"
+                                        aria-describedby="emailHelp" placeholder="Gewog Name">
+                                    {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+                                </div>
+
+
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -143,22 +146,24 @@
                         </div>
                         <div class="modal-body">
                             <form method="post" action="{{ route('gewog.edit.update') }}">@csrf
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Gewog</label>
-                                    <input type="text" class="form-control" id="gewogNamea" name="gewogName"
-                                        aria-describedby="emailHelp" placeholder="Gewog Name">
-                                    {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                                    <input type="hidden" id="gewogID" name="gewogID">
-                                  </div>
+                                
 
                                 <div class="form-group">
-                                    <select class="form-control" aria-label="Default select example" name="DzoID" id="DzoNameId">
+                                    <select class="form-control" aria-label="Default select example" name="DzoID"
+                                        id="DzoNameId">
                                         <option value="">Select</option>
                                         @foreach (@$processing as $value)
                                             <option value="{{ $value->dzoID }}">{{ @$value->dzoName }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Gewog</label>
+                                  <input type="text" class="form-control" id="gewogNamea" name="gewogName"
+                                      aria-describedby="emailHelp" placeholder="Gewog Name">
+                                  {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+                                  <input type="hidden" id="gewogID" name="gewogID">
+                              </div>
 
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -192,7 +197,7 @@
             });
         });
 
-        function openEditModalEditGewog(id,select) {
+        function openEditModalEditGewog(id, select) {
             console.log(7777);
             console.log(id);
             console.log(select);

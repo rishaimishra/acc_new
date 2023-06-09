@@ -14,4 +14,8 @@ class Village extends Model
     public function getGewogDetails(){
         return $this->hasOne('App\Models\Gewog', 'gewogID', 'gewogID');
     }
+
+    public function getDzongkhagDetails(){
+        return $this->hasOne('App\Models\Dzongkhag', 'dzoID', 'dzoID');
+    }
 }
