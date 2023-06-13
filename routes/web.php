@@ -29,6 +29,7 @@ use App\Http\Controllers\ComplaintMaster\PersonCategory;
 use App\Http\Controllers\AssignComplaint\AssignComplaintController;
 use App\Http\Controllers\EmpCat\EmpCatController;
 use App\Http\Controllers\agency\AgencyController;
+use App\Http\Controllers\Corrupt\CorruptionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -287,6 +288,7 @@ Route::resource('constituency', ConstituencyController::class);
 Route::resource('embassy', EmbasyController::class);
 Route::resource('emp-category', EmpCatController::class);
 Route::resource('agency', AgencyController::class);
+Route::resource('corruption-type', CorruptionController::class);
 
 
 Route::get('dzonkhags/{id}',[DzonkhagController::class,'deleteDz'])->name('dzonkhag.delete');
