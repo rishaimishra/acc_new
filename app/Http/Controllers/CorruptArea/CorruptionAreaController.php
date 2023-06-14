@@ -4,6 +4,9 @@ namespace App\Http\Controllers\CorruptArea;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\CorruptionArea;
+use Redirect;
+use Alert;
 
 class CorruptionAreaController extends Controller
 {
@@ -14,7 +17,9 @@ class CorruptionAreaController extends Controller
      */
     public function index()
     {
-        //
+        $data = [];
+        $data['data'] = CorruptionArea::orderBy('corruptionAreaID','desc')->where('isDelete',0)->get();
+        return view('corrupAreatype.list', $data);
     }
 
     /**

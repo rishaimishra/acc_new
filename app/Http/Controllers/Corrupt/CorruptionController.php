@@ -40,7 +40,15 @@ class CorruptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //  dd($request);
+         $dzonkhag = new CorruptionType();
+         $dzonkhag->name = $request->name;
+         $dzonkhag->remarks = $request->remarks;
+         $dzonkhag->isDelete = 0;
+         $dzonkhag->save();
+ 
+         Alert::success('You\'ve Successfully Added A Corruption Type ');
+         return Redirect::back();
     }
 
     /**
@@ -86,5 +94,24 @@ class CorruptionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function deleteCoruptype($id){
+        // dd($id);
+        CorruptionType::where(['corruptionTypeID' => $id])->delete();
+        Alert::success(' Corruption Type Deleted Successfully');
+        return redirect()->back();
+    }
+
+    public function EditCorruptype(Request $request){
+        // dd($request);
+        $person = new CorruptionType;
+            $person->where(['corruptionTypeID' => $request->corruptionTypeID])->update([
+                'name' => $request->name,
+                'remarks' => $request->remarks,
+            ]);
+
+            Alert::success(' Corruption Type Updated Successfully');
+            return redirect()->back();
     }
 }

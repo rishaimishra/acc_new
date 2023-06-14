@@ -17,7 +17,7 @@
                                 <div class="col-sm">
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#exampleModa2">
+                                        data-target="#exampleModaCorruptype">
                                         Add
                                     </button>
                                 </div>
@@ -54,19 +54,19 @@
                                                 <td>
                                                   
 
-                                                    {{-- <a type="button"
-                                                        class="btn btn-xs btn-primary row-class-{{ @$att->dzoID }}"
-                                                        data-row-data='{{ @$att->dzoName }}' data-toggle="modal"
-                                                        onclick="openEditModal({{ @$att->dzoID }})">
+                                                    <a type="button"
+                                                        class="btn btn-xs btn-primary row-class-{{ @$att->corruptionTypeID }}"
+                                                        data-row-data='{{ @$att->name }}' data-toggle="modal"
+                                                        onclick="openEditModalCorruptype({{ @$att->corruptionTypeID }},`{{ @$att->remarks }}`)">
                                                         Edit
                                                     </a>
 
                                                     <a class="btn btn-xs btn-danger"
-                                                        href="{{ route('dzonkhag.delete', ['id' => @$att->dzoID]) }}"
-                                                        onclick="return confirm('Are you sure , you want to delete this dzonkhag ? ')"><i
+                                                        href="{{ route('corruptype.delete', ['id' => @$att->corruptionTypeID]) }}"
+                                                        onclick="return confirm('Are you sure , you want to delete this corruption type ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
-                                                    </a> --}}
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -85,7 +85,7 @@
 
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="exampleModaCorruptype" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -96,11 +96,18 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('dzonkhag.store') }}">@csrf
+                            <form method="post" action="{{ route('corruption-type.store') }}">@csrf
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Dzongkhag</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="dzoName"
-                                        aria-describedby="emailHelp" placeholder="Dzongkhag Name">
+                                    <label for="exampleInputEmail1">Name</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="name"
+                                        aria-describedby="emailHelp" placeholder="Name">
+                                    {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+                                </div>
+                               
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Remarks</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="remarks"
+                                        aria-describedby="emailHelp" placeholder="Remarks">
                                     {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
                                 </div>
 
@@ -117,23 +124,29 @@
 
 
             <!--Edit Modal -->
-            <div class="modal fade" id="exampleModaEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="exampleModaEditCorruptype" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Dzongkhag</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Corruption Type</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('dzonkhag.edit') }}">@csrf
+                            <form method="post" action="{{ route('corruptype.edit.update') }}">@csrf
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Dzongkhag</label>
-                                    <input type="text" class="form-control" id="dzongKhagId" name="dzoName"
-                                        aria-describedby="emailHelp" placeholder="Dzongkhag Name">
-                                    <input type="hidden" id="DzoId" name="dzoID">
+                                    <label for="exampleInputEmail1">Name</label>
+                                    <input type="text" class="form-control" id="NameId" name="name"
+                                        aria-describedby="emailHelp" placeholder="Name">
+                                    <input type="hidden" id="Cid" name="corruptionTypeID">
+                                </div>
+                               
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Remarks</label>
+                                    <input type="text" class="form-control" id="RemarksId" name="remarks"
+                                        aria-describedby="emailHelp" placeholder="Remarks">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -168,14 +181,16 @@
             });
         });
 
-        function openEditModal(id) {
+        function openEditModalCorruptype(id,remarks) {
             console.log(7777);
             console.log(id);
+            console.log(remarks);
             let data = $(`.row-class-${id}`).attr('data-row-data');
             console.log(data);
-            $('#exampleModaEdit').modal('show')
-            document.getElementById("dzongKhagId").value = data;
-            document.getElementById("DzoId").value = id;
+            $('#exampleModaEditCorruptype').modal('show')
+            document.getElementById("NameId").value = data;
+            document.getElementById("RemarksId").value = remarks;
+            document.getElementById("Cid").value = id;
 
         }
     </script>

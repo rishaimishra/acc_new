@@ -299,6 +299,7 @@ Route::get('constituencys/{id}',[ConstituencyController::class,'deleteConsti'])-
 Route::get('embassys/{id}',[EmbasyController::class,'deleteEmbassy'])->name('embasy.delete');
 Route::get('employee-cat/{id}',[EmpCatController::class,'deleteEmpCat'])->name('emp.category.delete');
 Route::get('agencys/{id}',[AgencyController::class,'deleteAgency'])->name('agency.delete');
+Route::get('corruption-types/{id}',[CorruptionController::class,'deleteCoruptype'])->name('corruptype.delete');
 
 
 // complaint-masters
@@ -336,3 +337,4 @@ Route::post('village-edit',[VillageController::class,'EditVillage'])->name('vill
 Route::get('gewog-list-per-dzonkhag/{id}',[VillageController::class,'gewoglistAsperDzongkhag'])->name('gewog.list.dz');
 Route::post('constituency-edit',[ConstituencyController::class,'EditConstituency'])->name('constituency.edit.update');
 Route::post('agency-edit',[AgencyController::class,'EditAgency'])->name('agency.edit.update');
+Route::post('corrupt-type-edit',[CorruptionController::class,'EditCorruptype'])->name('corruptype.edit.update');
