@@ -134,7 +134,7 @@
 
                                 <div class="col-md-4">
                                     <div class="card">
-                                        <a href="{{route('manage.pursuability-value-feilds')}}" class="btn btn-success">Complaints Evaluation Decisions</a>
+                                        <a href="{{route('complain-evaluation-decision.index')}}" class="btn btn-success">Complaints Evaluation Decisions</a>
                                     </div>
                                 </div>
 

@@ -4,6 +4,9 @@ namespace App\Http\Controllers\ComplainEvaDecision;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\ComplainEvaluationDecision;
+use Redirect;
+use Alert;
 
 class ComplainEvalDecController extends Controller
 {
@@ -14,7 +17,9 @@ class ComplainEvalDecController extends Controller
      */
     public function index()
     {
-        //
+        $data = [];
+        $data['data'] = ComplainEvaluationDecision::orderBy('compEvaDecisionID','desc')->where('isDelete',0)->get();
+        return view('compEvalDecision.list', $data);
     }
 
     /**
@@ -35,7 +40,15 @@ class ComplainEvalDecController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $dzonkhag = new ComplainEvaluationDecision();
+        $dzonkhag->compEvaDecisionName = $request->compEvaDecisionName;
+        $dzonkhag->compEvaDecisionRemarks = $request->compEvaDecisionRemarks;
+        $dzonkhag->isDelete = 0;
+        $dzonkhag->save();
+
+        Alert::success('You\'ve Successfully Added A Complain Evaluation Decision ');
+        return Redirect::back();
     }
 
     /**
@@ -81,5 +94,24 @@ class ComplainEvalDecController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function deleteCompEvalDec($id){
+         // dd($id);
+         ComplainEvaluationDecision::where(['compEvaDecisionID' => $id])->delete();
+         Alert::success(' Complaint Evaluation Decision Deleted Successfully');
+         return redirect()->back();
+    }
+    
+    public function EditCorruparea(Request $request){
+        // dd($request);
+        $person = new ComplainEvaluationDecision;
+            $person->where(['compEvaDecisionID' => $request->id])->update([
+                'compEvaDecisionName' => $request->compEvaDecisionName,
+                'compEvaDecisionRemarks' => $request->compEvaDecisionRemarks,
+            ]);
+
+            Alert::success(' Complaint Evaluation Decision Updated Successfully');
+            return redirect()->back();
     }
 }
