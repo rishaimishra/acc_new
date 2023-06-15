@@ -106,6 +106,7 @@
 
 
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Dzonkhag</label>
                                     <select class="form-control" aria-label="Default select example" name="dzooID"
                                         id="SelectDz">
                                         <option value="">Select Dzonkhag</option>
@@ -115,6 +116,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Gewog</label>
                                     <select class="form-control" aria-label="Default select example" name="gewogID"
                                         id="sel">
                                         <option value="">Select Gewog</option>
@@ -159,6 +161,7 @@
 
 
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Dzonkhag</label>
                                     <select class="form-control" aria-label="Default select example" name="dzooID"
                                         id="DzoNameId">
                                         <option value="">Select Dzonkhag</option>
@@ -168,6 +171,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Gewog</label>
                                     <select class="form-control" aria-label="Default select example" name="gewogID"
                                         id="GewogNameId">
                                         <option value="">Select Gewog</option>
@@ -237,6 +241,8 @@
             console.log(selectId);
             var url = '{{ route('gewog.list.dz', ':id') }}';
             url = url.replace(':id', selectId);
+            $('#sel').empty();
+            
             $.getJSON(url, function(data) {
                 $.each(data, function(index, value) {
                     // APPEND OR INSERT DATA TO SELECT ELEMENT.

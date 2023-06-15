@@ -101,7 +101,18 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="get" action="{{ route('constituency.store') }}">@csrf
+                            <form method="post" action="{{ route('constituency.store') }}">@csrf
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Dzonkhag</label>
+                                    <select class="form-control" aria-label="Default select example" name="DzoID">
+                                        <option value="">Select</option>
+                                        @foreach (@$processing as $value)
+                                            <option value="{{ $value->dzoID }}">{{ @$value->dzoName }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Constituency</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1"
@@ -110,14 +121,7 @@
                                     {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
                                 </div>
 
-                                <div class="form-group">
-                                    <select class="form-control" aria-label="Default select example" name="DzoID">
-                                        <option value="">Select</option>
-                                        @foreach (@$processing as $value)
-                                            <option value="{{ $value->dzoID }}">{{ @$value->dzoName }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                               
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -146,6 +150,7 @@
 
 
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Dzonkhag</label>
                                     <select class="form-control" aria-label="Default select example" name="DzoID"
                                         id="DzoNameId">
                                         <option value="">Select</option>
