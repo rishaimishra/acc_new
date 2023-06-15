@@ -121,20 +121,49 @@
                                 
                                 <div class="col-md-4">
                                     <div class="card">
-                                        <a href="{{route('manage.pursuability-value-category')}}" class="btn btn-primary">Pursuability Value Category</a>
+                                        <a href="{{route('corruption-type.index')}}" class="btn btn-primary">Type of Corruption</a>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="card">
-                                        <a href="{{route('manage.pursuability-value-sub-category')}}" class="btn btn-warning">Pursuability Value Subcategory</a>
+                                        <a href="{{route('corruption-area.index')}}" class="btn btn-warning">Area of Corruption</a>
                                     </div>
                                 </div>
 
 
                                 <div class="col-md-4">
                                     <div class="card">
-                                        <a href="{{route('manage.pursuability-value-feilds')}}" class="btn btn-success">Pursuability Value Fields</a>
+                                        <a href="{{route('manage.pursuability-value-feilds')}}" class="btn btn-success">Complaints Evaluation Decisions</a>
+                                    </div>
+                                </div>
+
+                                
+
+
+                                
+
+                            </div>
+                           
+                           
+                            <div class="row">
+                                
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <a href="{{route('manage.pursuability-value-category')}}" class="btn btn-danger">Pursuability Value Category</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <a href="{{route('manage.pursuability-value-sub-category')}}" class="btn btn-info">Pursuability Value Subcategory</a>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <a href="{{route('manage.pursuability-value-feilds')}}" class="btn btn-warning">Pursuability Value Fields</a>
                                     </div>
                                 </div>
 
