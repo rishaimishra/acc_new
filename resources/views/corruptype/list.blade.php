@@ -12,12 +12,12 @@
                             {{-- Dzonkhag List --}}
                             <div class="row" style="font-family:Product Sans">
                                 <div class="col-sm">
-                                    Gewog List
+                                    Type of Corruption
                                 </div>
                                 <div class="col-sm">
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#exampleModa3">
+                                        data-target="#exampleModaCorruptype">
                                         Add
                                     </button>
                                 </div>
@@ -32,43 +32,38 @@
                             {{-- <h5>
                               <small>Dzonkhags related to the complaint (Only PDF files are allowed)</small>
                             </h5> --}}
-                            <table id="maintableGewog" class="table">
+                            <table id="maintableDz" class="table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Date</th>
-                                        <th>Gewog</th>
-                                        {{-- <th>Detail</th> --}}
-                                        <th>Dzongkhag</th>
+                                        <th>Corruption Type</th>
+                                        <th>Remarks</th>
+                                        {{-- <th>File Size</th> --}}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (@$data)
-                                        {{-- {{$data}} --}}
+                                    @if (@$data->isNotEmpty())
                                         @foreach (@$data as $att)
                                             <tr>
-                                                <td>{{ $att->gewogID }}</td>
+                                                <td>{{ $att->corruptionTypeID }}</td>
                                                 <td>{{ $att->created_at }}</td>
-                                                <td>{{ $att->gewogName }}</td>
-                                                <td>{{ $att->getDzongkhagDetails->dzoName }}</td>
+                                                <td>{{ $att->name }}</td>
+                                                <td>{{ $att->remarks }}</td>
                                                 <td>
-                                                    {{-- <a class="btn btn-xs btn-info"
-                                                               href="{{URL::to('attachment/complaintRegistration')}}/{{$att->AttachmentPath}}" target="_blank">
-                                                                <i class="fa fa-eye"></i>
-                                                                View
-                                                            </a>
-                                                             --}}
+                                                  
 
                                                     <a type="button"
-                                                        class="btn btn-xs btn-primary row-class-{{ @$att->gewogID }}"
-                                                        data-row-data='{{ @$att->gewogName }}' data-toggle="modal"
-                                                        onclick="openEditModalEditGewog({{ @$att->gewogID }},`{{ @$att->getDzongkhagDetails->dzoID }}`)">
+                                                        class="btn btn-xs btn-primary row-class-{{ @$att->corruptionTypeID }}"
+                                                        data-row-data='{{ @$att->name }}' data-toggle="modal"
+                                                        onclick="openEditModalCorruptype({{ @$att->corruptionTypeID }},`{{ @$att->remarks }}`)">
                                                         Edit
                                                     </a>
+
                                                     <a class="btn btn-xs btn-danger"
-                                                        href="{{ route('gewog.delete', ['id' => @$att->gewogID]) }}"
-                                                        onclick="return confirm('Are you sure , you want to delete this gewog ? ')"><i
+                                                        href="{{ route('corruptype.delete', ['id' => @$att->corruptionTypeID]) }}"
+                                                        onclick="return confirm('Are you sure , you want to delete this corruption type ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
                                                     </a>
@@ -90,36 +85,31 @@
 
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModa3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="exampleModaCorruptype" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Gewog</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Add Dzongkhag</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('gewog.store') }}">@csrf
-
+                            <form method="post" action="{{ route('corruption-type.store') }}">@csrf
                                 <div class="form-group">
-                                    <select class="form-control" aria-label="Default select example" name="DzoID">
-                                        <option value="">Select</option>
-                                        @foreach (@$processing as $value)
-                                            <option value="{{ $value->dzoID }}">{{ @$value->dzoName }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Gewog</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="gewogName"
-                                        aria-describedby="emailHelp" placeholder="Gewog Name">
+                                    <label for="exampleInputEmail1">Name</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="name"
+                                        aria-describedby="emailHelp" placeholder="Name">
                                     {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
                                 </div>
-
-
+                               
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Remarks</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="remarks"
+                                        aria-describedby="emailHelp" placeholder="Remarks">
+                                    {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+                                </div>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -134,37 +124,30 @@
 
 
             <!--Edit Modal -->
-            <div class="modal fade" id="exampleModaEditGewog" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModaEditCorruptype" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Gewog</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Corruption Type</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('gewog.edit.update') }}">@csrf
-                                
-
+                            <form method="post" action="{{ route('corruptype.edit.update') }}">@csrf
                                 <div class="form-group">
-                                    <select class="form-control" aria-label="Default select example" name="DzoID"
-                                        id="DzoNameId">
-                                        <option value="">Select</option>
-                                        @foreach (@$processing as $value)
-                                            <option value="{{ $value->dzoID }}">{{ @$value->dzoName }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for="exampleInputEmail1">Name</label>
+                                    <input type="text" class="form-control" id="NameId" name="name"
+                                        aria-describedby="emailHelp" placeholder="Name">
+                                    <input type="hidden" id="Cid" name="corruptionTypeID">
                                 </div>
+                               
                                 <div class="form-group">
-                                  <label for="exampleInputEmail1">Gewog</label>
-                                  <input type="text" class="form-control" id="gewogNamea" name="gewogName"
-                                      aria-describedby="emailHelp" placeholder="Gewog Name">
-                                  {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                                  <input type="hidden" id="gewogID" name="gewogID">
-                              </div>
-
+                                    <label for="exampleInputEmail1">Remarks</label>
+                                    <input type="text" class="form-control" id="RemarksId" name="remarks"
+                                        aria-describedby="emailHelp" placeholder="Remarks">
+                                </div>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -181,6 +164,7 @@
         </div>
     </section>
 
+
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" charset="utf8"
         src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
@@ -190,23 +174,23 @@
         // });
 
         $(document).ready(function() {
-            $('#maintableGewog').DataTable({
+            $('#maintableDz').DataTable({
                 order: [
                     [0, 'desc']
                 ],
             });
         });
 
-        function openEditModalEditGewog(id, select) {
+        function openEditModalCorruptype(id,remarks) {
             console.log(7777);
             console.log(id);
-            console.log(select);
+            console.log(remarks);
             let data = $(`.row-class-${id}`).attr('data-row-data');
             console.log(data);
-            $('#exampleModaEditGewog').modal('show')
-            document.getElementById("gewogNamea").value = data;
-            document.getElementById("gewogID").value = id;
-            document.getElementById("DzoNameId").value = select;
+            $('#exampleModaEditCorruptype').modal('show')
+            document.getElementById("NameId").value = data;
+            document.getElementById("RemarksId").value = remarks;
+            document.getElementById("Cid").value = id;
 
         }
     </script>

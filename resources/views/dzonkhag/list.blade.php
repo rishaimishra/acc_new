@@ -68,7 +68,7 @@
 
                                                     <a class="btn btn-xs btn-danger"
                                                         href="{{ route('dzonkhag.delete', ['id' => @$att->dzoID]) }}"
-                                                        onclick="return confirm('Are you sure , you want to delete this attachment ? ')"><i
+                                                        onclick="return confirm('Are you sure , you want to delete this dzonkhag ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
                                                     </a>

@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Village;
+namespace App\Http\Controllers\agency;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request; 
-use App\Models\Gewog;
-use App\Models\Village;
-use App\Models\Dzongkhag;
-use Alert;
+use Illuminate\Http\Request;
 use Redirect;
+use App\Models\Complaint\agencyModel;
+use App\Models\EmpCategory;
+use Alert;
 
-
-
-class VillageController extends Controller
+class AgencyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,12 +19,12 @@ class VillageController extends Controller
     public function index()
     {
         $data = [];
-        $data['data'] = Village::with('getGewogDetails')->orderBy('villageID','desc')->where('isDelete',0)->get();
-        $data['processing'] = Gewog::where('isDelete',0)->get();
-        $data['processingDz'] = Dzongkhag::where('isDelete',0)->get();
+        $Dzonkhag = [];
+        $data['data'] = agencyModel::with('getEmpCatDetails')->orderBy('agencyID','desc')->where('isDelete',0)->get();
+        $data['processing'] = EmpCategory::where('isDelete',0)->get();
 
         // dd($data);
-        return view('village.list', $data);
+        return view('agency.list', $data);
     }
 
     /**
@@ -49,14 +46,14 @@ class VillageController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        $dzonkhag = new Village();
-        $dzonkhag->villageName = $request->villageName;
-        $dzonkhag->dzoID = $request->dzooID;
-        $dzonkhag->gewogID = $request->gewogID;
+        $dzonkhag = new agencyModel();
+        $dzonkhag->agencyName = $request->agencyName;
+        $dzonkhag->agencyCategoryID = $request->agencyCategoryID;
+        $dzonkhag->parentAgencyID = $request->parentAgencyID;
         $dzonkhag->isDelete = 0;
         $dzonkhag->save();
 
-        Alert::success('You\'ve Successfully Added A Gewog ');
+        Alert::success('You\'ve Successfully Added A Agency ');
         return Redirect::back();
     }
 
@@ -105,28 +102,23 @@ class VillageController extends Controller
         //
     }
 
-    public function deleteVj($id){
+    public function deleteAgency($id){
         // dd($id);
-        Village::where(['villageID' => $id])->delete();
-        Alert::success(' Village Deleted Successfully');
+        agencyModel::where(['agencyID' => $id])->delete();
+        Alert::success(' Agency Deleted Successfully');
         return redirect()->back();
     }
 
-    public function gewoglistAsperDzongkhag($id){
-        $data = Gewog::where('isDelete',0)->where('dzoID',$id)->get();
-        return $data;
-    }
-
-    public function EditVillage(Request $request){
+    public function EditAgency(Request $request){
         // dd($request);
-        $person = new Village;
-        $person->where(['villageID' => $request->villageID])->update([
-            'DzoID' => $request->dzooID,
-            'gewogID' => $request->gewogID,
-            'villageName' => $request->villageNamea
+        $person = new agencyModel;
+        $person->where(['agencyID' => $request->agencyID])->update([
+            'agencyCategoryID' => $request->emcatId,
+            'parentAgencyID' => $request->parentId,
+            'agencyName' => $request->agencyName
         ]);
 
-        Alert::success(' Village Updated Successfully');
+        Alert::success(' Agency Updated Successfully');
         return redirect()->back();
     }
 }

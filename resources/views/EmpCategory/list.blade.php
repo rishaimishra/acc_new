@@ -12,12 +12,12 @@
                             {{-- Dzonkhag List --}}
                             <div class="row" style="font-family:Product Sans">
                                 <div class="col-sm">
-                                    Gewog List
+                                    Employee Category List
                                 </div>
                                 <div class="col-sm">
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#exampleModa3">
+                                        data-target="#exampleModaEmpCat">
                                         Add
                                     </button>
                                 </div>
@@ -32,26 +32,25 @@
                             {{-- <h5>
                               <small>Dzonkhags related to the complaint (Only PDF files are allowed)</small>
                             </h5> --}}
-                            <table id="maintableGewog" class="table">
+                            <table id="maintableEmpCat" class="table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Date</th>
-                                        <th>Gewog</th>
+                                        <th>EmpCategory</th>
                                         {{-- <th>Detail</th> --}}
-                                        <th>Dzongkhag</th>
+                                        {{-- <th>File Size</th> --}}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if (@$data)
-                                        {{-- {{$data}} --}}
+                                    @if (@$data->isNotEmpty())
                                         @foreach (@$data as $att)
                                             <tr>
-                                                <td>{{ $att->gewogID }}</td>
+                                                <td>{{ $att->empCategoryID }}</td>
                                                 <td>{{ $att->created_at }}</td>
-                                                <td>{{ $att->gewogName }}</td>
-                                                <td>{{ $att->getDzongkhagDetails->dzoName }}</td>
+                                                <td>{{ $att->empCategoryName }}</td>
+                                                {{-- <td>{{ $att->CRattachmentDetails }}</td> --}}
                                                 <td>
                                                     {{-- <a class="btn btn-xs btn-info"
                                                                href="{{URL::to('attachment/complaintRegistration')}}/{{$att->AttachmentPath}}" target="_blank">
@@ -61,14 +60,15 @@
                                                              --}}
 
                                                     <a type="button"
-                                                        class="btn btn-xs btn-primary row-class-{{ @$att->gewogID }}"
-                                                        data-row-data='{{ @$att->gewogName }}' data-toggle="modal"
-                                                        onclick="openEditModalEditGewog({{ @$att->gewogID }},`{{ @$att->getDzongkhagDetails->dzoID }}`)">
+                                                        class="btn btn-xs btn-primary row-class-{{ @$att->empCategoryID }}"
+                                                        data-row-data='{{ @$att->empCategoryName }}' data-toggle="modal"
+                                                        onclick="openEditModal({{ @$att->empCategoryID }})">
                                                         Edit
                                                     </a>
+
                                                     <a class="btn btn-xs btn-danger"
-                                                        href="{{ route('gewog.delete', ['id' => @$att->gewogID]) }}"
-                                                        onclick="return confirm('Are you sure , you want to delete this gewog ? ')"><i
+                                                        href="{{ route('emp.category.delete', ['id' => @$att->empCategoryID]) }}"
+                                                        onclick="return confirm('Are you sure , you want to delete this attachment ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
                                                     </a>
@@ -90,36 +90,24 @@
 
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModa3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="exampleModaEmpCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Gewog</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Add Employee Category</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('gewog.store') }}">@csrf
-
+                            <form method="post" action="{{ route('emp-category.store') }}">@csrf
                                 <div class="form-group">
-                                    <select class="form-control" aria-label="Default select example" name="DzoID">
-                                        <option value="">Select</option>
-                                        @foreach (@$processing as $value)
-                                            <option value="{{ $value->dzoID }}">{{ @$value->dzoName }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Gewog</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="gewogName"
-                                        aria-describedby="emailHelp" placeholder="Gewog Name">
+                                    <label for="exampleInputEmail1">Employee Category</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="empCategoryName"
+                                        aria-describedby="emailHelp" placeholder="Employee Category Name">
                                     {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
                                 </div>
-
-
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -134,37 +122,24 @@
 
 
             <!--Edit Modal -->
-            <div class="modal fade" id="exampleModaEditGewog" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModaEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Gewog</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Employee Category</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('gewog.edit.update') }}">@csrf
-                                
-
+                            <form method="post" action="{{ route('emp.cat.edit') }}">@csrf
                                 <div class="form-group">
-                                    <select class="form-control" aria-label="Default select example" name="DzoID"
-                                        id="DzoNameId">
-                                        <option value="">Select</option>
-                                        @foreach (@$processing as $value)
-                                            <option value="{{ $value->dzoID }}">{{ @$value->dzoName }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for="exampleInputEmail1">Employee Category</label>
+                                    <input type="text" class="form-control" id="EmpCatId" name="empCategoryName"
+                                        aria-describedby="emailHelp" placeholder="Employee Category Name">
+                                    <input type="hidden" id="EmctId" name="empCategoryID">
                                 </div>
-                                <div class="form-group">
-                                  <label for="exampleInputEmail1">Gewog</label>
-                                  <input type="text" class="form-control" id="gewogNamea" name="gewogName"
-                                      aria-describedby="emailHelp" placeholder="Gewog Name">
-                                  {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                                  <input type="hidden" id="gewogID" name="gewogID">
-                              </div>
-
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -181,32 +156,31 @@
         </div>
     </section>
 
+
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" charset="utf8"
         src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
     <script>
         // $(function() {
-        //     $("#maintableDz").dataTable();
+        //     $("#maintableEmpCat").dataTable();
         // });
 
         $(document).ready(function() {
-            $('#maintableGewog').DataTable({
+            $('#maintableEmpCat').DataTable({
                 order: [
                     [0, 'desc']
                 ],
             });
         });
 
-        function openEditModalEditGewog(id, select) {
+        function openEditModal(id) {
             console.log(7777);
             console.log(id);
-            console.log(select);
             let data = $(`.row-class-${id}`).attr('data-row-data');
             console.log(data);
-            $('#exampleModaEditGewog').modal('show')
-            document.getElementById("gewogNamea").value = data;
-            document.getElementById("gewogID").value = id;
-            document.getElementById("DzoNameId").value = select;
+            $('#exampleModaEdit').modal('show')
+            document.getElementById("EmpCatId").value = data;
+            document.getElementById("EmctId").value = id;
 
         }
     </script>

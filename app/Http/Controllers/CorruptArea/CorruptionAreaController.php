@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Gewog;
+namespace App\Http\Controllers\CorruptArea;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\CorruptionArea;
 use Redirect;
-use App\Models\Gewog;
-use App\Models\Dzongkhag;
 use Alert;
 
-
-class GewogController extends Controller
+class CorruptionAreaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,12 +18,8 @@ class GewogController extends Controller
     public function index()
     {
         $data = [];
-        $Dzonkhag = [];
-        $data['data'] = Gewog::with('getDzongkhagDetails')->orderBy('gewogID','desc')->where('isDelete',0)->get();
-        $data['processing'] = Dzongkhag::where('isDelete',0)->get();
-
-        // dd($data);
-        return view('gewog.list', $data);
+        $data['data'] = CorruptionArea::orderBy('corruptionAreaID','desc')->where('isDelete',0)->get();
+        return view('corrupAreatype.list', $data);
     }
 
     /**
@@ -46,16 +40,7 @@ class GewogController extends Controller
      */
     public function store(Request $request)
     {
-        
-        // dd($request);
-        $dzonkhag = new Gewog();
-        $dzonkhag->gewogName = $request->gewogName;
-        $dzonkhag->DzoID = $request->DzoID;
-        $dzonkhag->isDelete = 0;
-        $dzonkhag->save();
-
-        Alert::success('You\'ve Successfully Added A Gewog ');
-        return Redirect::back();
+        //
     }
 
     /**
@@ -101,24 +86,5 @@ class GewogController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function deleteGz($id){
-        // dd($id);
-        Gewog::where(['gewogID' => $id])->delete();
-        Alert::success(' Gewog Deleted Successfully');
-        return redirect()->back();
-    }
-
-    public function EditGewog(Request $request){
-        // dd($request);
-        $person = new Gewog;
-        $person->where(['gewogID' => $request->gewogID])->update([
-            'DzoID' => $request->DzoID,
-            'gewogName' => $request->gewogName
-        ]);
-
-        Alert::success(' Gewog Updated Successfully');
-        return redirect()->back();
     }
 }

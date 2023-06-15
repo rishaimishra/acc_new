@@ -1,18 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Village;
+namespace App\Http\Controllers\EmpCat;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request; 
-use App\Models\Gewog;
-use App\Models\Village;
-use App\Models\Dzongkhag;
-use Alert;
+use Illuminate\Http\Request;
+use App\Models\EmpCategory;
 use Redirect;
+use Alert;
 
-
-
-class VillageController extends Controller
+class EmpCatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,12 +18,8 @@ class VillageController extends Controller
     public function index()
     {
         $data = [];
-        $data['data'] = Village::with('getGewogDetails')->orderBy('villageID','desc')->where('isDelete',0)->get();
-        $data['processing'] = Gewog::where('isDelete',0)->get();
-        $data['processingDz'] = Dzongkhag::where('isDelete',0)->get();
-
-        // dd($data);
-        return view('village.list', $data);
+        $data['data'] = EmpCategory::orderBy('empCategoryID','desc')->where('isDelete',0)->get();
+        return view('EmpCategory.list', $data);
     }
 
     /**
@@ -48,16 +40,14 @@ class VillageController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-        $dzonkhag = new Village();
-        $dzonkhag->villageName = $request->villageName;
-        $dzonkhag->dzoID = $request->dzooID;
-        $dzonkhag->gewogID = $request->gewogID;
-        $dzonkhag->isDelete = 0;
-        $dzonkhag->save();
-
-        Alert::success('You\'ve Successfully Added A Gewog ');
-        return Redirect::back();
+        //  dd($request);
+         $dzonkhag = new EmpCategory();
+         $dzonkhag->empCategoryName = $request->empCategoryName;
+         $dzonkhag->isDelete = 0;
+         $dzonkhag->save();
+ 
+         Alert::success('You\'ve Successfully Added A Employee Category ');
+         return Redirect::back();
     }
 
     /**
@@ -105,28 +95,20 @@ class VillageController extends Controller
         //
     }
 
-    public function deleteVj($id){
+    public function deleteEmpCat($id){
         // dd($id);
-        Village::where(['villageID' => $id])->delete();
-        Alert::success(' Village Deleted Successfully');
+        EmpCategory::where(['empCategoryID' => $id])->delete();
+        Alert::success(' Employee Category Deleted Successfully');
         return redirect()->back();
     }
 
-    public function gewoglistAsperDzongkhag($id){
-        $data = Gewog::where('isDelete',0)->where('dzoID',$id)->get();
-        return $data;
-    }
-
-    public function EditVillage(Request $request){
-        // dd($request);
-        $person = new Village;
-        $person->where(['villageID' => $request->villageID])->update([
-            'DzoID' => $request->dzooID,
-            'gewogID' => $request->gewogID,
-            'villageName' => $request->villageNamea
+    public function EditEmpCat(Request $request){
+        $person = new EmpCategory;
+        $person->where(['empCategoryID' => $request->empCategoryID])->update([
+            'empCategoryName' => $request->empCategoryName
         ]);
 
-        Alert::success(' Village Updated Successfully');
+        Alert::success(' Employee Category Updated Successfully');
         return redirect()->back();
     }
 }

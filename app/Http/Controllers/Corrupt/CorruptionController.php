@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Gewog;
+namespace App\Http\Controllers\Corrupt;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\CorruptionType;
 use Redirect;
-use App\Models\Gewog;
-use App\Models\Dzongkhag;
 use Alert;
 
-
-class GewogController extends Controller
+class CorruptionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,12 +18,8 @@ class GewogController extends Controller
     public function index()
     {
         $data = [];
-        $Dzonkhag = [];
-        $data['data'] = Gewog::with('getDzongkhagDetails')->orderBy('gewogID','desc')->where('isDelete',0)->get();
-        $data['processing'] = Dzongkhag::where('isDelete',0)->get();
-
-        // dd($data);
-        return view('gewog.list', $data);
+        $data['data'] = CorruptionType::orderBy('corruptionTypeID','desc')->where('isDelete',0)->get();
+        return view('corruptype.list', $data);
     }
 
     /**
@@ -46,16 +40,15 @@ class GewogController extends Controller
      */
     public function store(Request $request)
     {
-        
-        // dd($request);
-        $dzonkhag = new Gewog();
-        $dzonkhag->gewogName = $request->gewogName;
-        $dzonkhag->DzoID = $request->DzoID;
-        $dzonkhag->isDelete = 0;
-        $dzonkhag->save();
-
-        Alert::success('You\'ve Successfully Added A Gewog ');
-        return Redirect::back();
+        //  dd($request);
+         $dzonkhag = new CorruptionType();
+         $dzonkhag->name = $request->name;
+         $dzonkhag->remarks = $request->remarks;
+         $dzonkhag->isDelete = 0;
+         $dzonkhag->save();
+ 
+         Alert::success('You\'ve Successfully Added A Corruption Type ');
+         return Redirect::back();
     }
 
     /**
@@ -103,22 +96,22 @@ class GewogController extends Controller
         //
     }
 
-    public function deleteGz($id){
+    public function deleteCoruptype($id){
         // dd($id);
-        Gewog::where(['gewogID' => $id])->delete();
-        Alert::success(' Gewog Deleted Successfully');
+        CorruptionType::where(['corruptionTypeID' => $id])->delete();
+        Alert::success(' Corruption Type Deleted Successfully');
         return redirect()->back();
     }
 
-    public function EditGewog(Request $request){
+    public function EditCorruptype(Request $request){
         // dd($request);
-        $person = new Gewog;
-        $person->where(['gewogID' => $request->gewogID])->update([
-            'DzoID' => $request->DzoID,
-            'gewogName' => $request->gewogName
-        ]);
+        $person = new CorruptionType;
+            $person->where(['corruptionTypeID' => $request->corruptionTypeID])->update([
+                'name' => $request->name,
+                'remarks' => $request->remarks,
+            ]);
 
-        Alert::success(' Gewog Updated Successfully');
-        return redirect()->back();
+            Alert::success(' Corruption Type Updated Successfully');
+            return redirect()->back();
     }
 }

@@ -104,7 +104,6 @@ class DzonkhagController extends Controller
     }
 
     public function EditDz(Request $request){
-            // dd(@$request->dzoID);
             $person = new Dzongkhag;
             $person->where(['dzoID' => $request->dzoID])->update([
                 'dzoName' => $request->dzoName
