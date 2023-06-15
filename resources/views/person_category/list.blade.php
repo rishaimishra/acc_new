@@ -53,6 +53,15 @@
                                                                 View
                                                             </a>
                                                              --}}
+
+                                                             <a type="button"
+                                                                class="btn btn-xs btn-primary edit_button"
+                                                                data-name="{{$att->categoryName}}" data-id="{{$att->personCategoryID}}"  data-toggle="modal"
+                                                                >
+                                                                Edit
+                                                            </a>
+
+                                                            
                                                             <a class="btn btn-xs btn-danger" href="{{route('person-category-master.delete',['id'=>$att->personCategoryID])}}" onclick="return confirm('Are you sure , you want to delete this  ? ')"><i class="fa fa-trash"></i>
                                                                 Delete
                                                             </a>
@@ -78,7 +87,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Complaint Type</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Add Person Category</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -104,42 +113,52 @@
   </div>
 
 
-<div class="modal fade" id="exampleModa3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Edit Complaint Mode</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form method="post" action="{{route('complaint-mode-master.add')}}">@csrf
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Complaint Mode</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" name="modeName" aria-describedby="emailHelp" placeholder="Complaint Mode">
-                 </div>
+<!--Edit Modal -->
+            <div class="modal fade" id="exampleModaEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Person Category</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="{{route('person-category-master.update')}}">@csrf
+                                
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Category Name</label>
+                                  <input type="text" class="form-control" id="categoryName" name="categoryName" aria-describedby="emailHelp" placeholder="Category Name">
+                                 </div>
 
-                 <div class="form-group">
-                  <label for="exampleInputEmail1">Type of Attachment</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" name="typeofAttachment" aria-describedby="emailHelp" placeholder="Type of Attachment">
-                 </div>
-        
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
-        </div>
-      </div>
-    </div>
-  </div>
+                                 
+                             <input type="hidden" name="id" id="id">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                              </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
 
     </div>
 </section>
 
-
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    $('.edit_button').on('click',function(){
+            $('#categoryName').val($(this).data('name'));
+            $('#id').val($(this).data('id'));
+            
+            $('#exampleModaEdit').modal('show');
+        })
+</script>
 
 
 @endsection

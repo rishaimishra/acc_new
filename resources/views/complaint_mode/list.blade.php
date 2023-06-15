@@ -57,6 +57,16 @@
                                                                 View
                                                             </a>
                                                              --}}
+
+
+                                                             <a type="button"
+                                                                class="btn btn-xs btn-primary edit_button "
+                                                                data-attachment='{{ @$att->typeofAttachment }}' data-name="{{$att->modeName}}" data-id="{{$att->complaintmodeID}}"  data-toggle="modal"
+                                                                >
+                                                                Edit
+                                                            </a>
+
+
                                                             <a class="btn btn-xs btn-danger" href="{{route('complaint-mode-master.delete',['id'=>$att->complaintmodeID])}}" onclick="return confirm('Are you sure , you want to delete this  ? ')"><i class="fa fa-trash"></i>
                                                                 Delete
                                                             </a>
@@ -111,42 +121,59 @@
   </div>
 
 
-<div class="modal fade" id="exampleModa3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Edit Complaint Mode</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form method="post" action="{{route('complaint-mode-master.add')}}">@csrf
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Complaint Mode</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" name="modeName" aria-describedby="emailHelp" placeholder="Complaint Mode">
-                 </div>
 
-                 <div class="form-group">
-                  <label for="exampleInputEmail1">Type of Attachment</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" name="typeofAttachment" aria-describedby="emailHelp" placeholder="Type of Attachment">
-                 </div>
-        
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
-        </div>
-      </div>
-    </div>
-  </div>
+
+
+
+            <!--Edit Modal -->
+            <div class="modal fade" id="exampleModaEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Complaint Mode</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="{{route('complaint-mode-master.update')}}">@csrf
+                                <input type="hidden" name="id" id="id">
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Complaint Mode</label>
+                                  <input type="text" class="form-control" id="modeName" name="modeName" aria-describedby="emailHelp" placeholder="Complaint Mode">
+                                 </div>
+
+                                 <div class="form-group">
+                                  <label for="exampleInputEmail1">Type of Attachment</label>
+                                  <input type="text" class="form-control" id="typeofAttachment" name="typeofAttachment" aria-describedby="emailHelp" placeholder="Type of Attachment">
+                                 </div>
+                        
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                              </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
 
     </div>
 </section>
 
-
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+        src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    $('.edit_button').on('click',function(){
+            $('#modeName').val($(this).data('name'));
+            $('#id').val($(this).data('id'));
+            $('#typeofAttachment').val($(this).data('attachment'));
+            $('#exampleModaEdit').modal('show');
+        })
+</script>
 
 
 @endsection

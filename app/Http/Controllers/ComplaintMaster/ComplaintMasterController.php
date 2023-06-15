@@ -33,5 +33,15 @@ class ComplaintMasterController extends Controller
         return Redirect::back();
     }
 
+    public function update(Request $request)
+    {
+        complaintModeModel::where('complaintmodeID',$request->id)->update([
+            'modeName'=>$request->modeName,
+            'typeofAttachment'=>$request->typeofAttachment,
+        ]);
+        Alert::success('You\'ve Successfully Updated A Complaint Mode');
+        return Redirect::back();
+    }
+
     
 }

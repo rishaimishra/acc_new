@@ -69,6 +69,16 @@
             </ul>
 
 
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{ route('masters.landing.page') }}" class="nav-link">
+                       <i class="fa fa-asterisk" aria-hidden="true"></i>
+                            <p>Masters</p>
+                    </a>
+                </li>
+            </ul>
+
+
             @if((Auth::user()->role=='Director') && (Auth::user()->department=='Department of Investigation'))
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
