@@ -49,7 +49,7 @@ class AgencyController extends Controller
         $dzonkhag = new agencyModel();
         $dzonkhag->agencyName = $request->agencyName;
         $dzonkhag->agencyCategoryID = $request->agencyCategoryID;
-        $dzonkhag->parentAgencyID = $request->parentAgencyID;
+        $dzonkhag->parentAgencyID = $request->parentAgencyID ?? 1;
         $dzonkhag->isDelete = 0;
         $dzonkhag->save();
 
@@ -114,7 +114,7 @@ class AgencyController extends Controller
         $person = new agencyModel;
         $person->where(['agencyID' => $request->agencyID])->update([
             'agencyCategoryID' => $request->emcatId,
-            'parentAgencyID' => $request->parentId,
+            'parentAgencyID' => $request->parentId ?? 1,
             'agencyName' => $request->agencyName
         ]);
 

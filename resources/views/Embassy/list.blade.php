@@ -68,7 +68,7 @@
 
                                                     <a class="btn btn-xs btn-danger"
                                                         href="{{ route('embasy.delete', ['id' => @$att->embassyID]) }}"
-                                                        onclick="return confirm('Are you sure , you want to delete this attachment ? ')"><i
+                                                        onclick="return confirm('Are you sure , you want to delete this embassy ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
                                                     </a>
@@ -95,7 +95,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Add Embassy</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -139,9 +139,9 @@
                 <div class="modal-body">
                     <form method="post" action="{{ route('embasy.edit') }}">@csrf
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Dzongkhag</label>
+                            <label for="exampleInputEmail1">Embassy</label>
                             <input type="text" class="form-control" id="EmbasyId" name="embassyName"
-                                aria-describedby="emailHelp" placeholder="Dzongkhag Name">
+                                aria-describedby="emailHelp" placeholder="Embassy Name">
                             <input type="hidden" id="EmId" name="embassyID">
                         </div>
 

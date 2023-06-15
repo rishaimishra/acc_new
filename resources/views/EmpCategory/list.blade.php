@@ -68,7 +68,7 @@
 
                                                     <a class="btn btn-xs btn-danger"
                                                         href="{{ route('emp.category.delete', ['id' => @$att->empCategoryID]) }}"
-                                                        onclick="return confirm('Are you sure , you want to delete this attachment ? ')"><i
+                                                        onclick="return confirm('Are you sure , you want to delete this employee category ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
                                                     </a>

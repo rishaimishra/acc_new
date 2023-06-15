@@ -104,6 +104,7 @@
                             <form method="post" action="{{ route('agency.store') }}">@csrf
 
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Agency Category</label>
                                     <select class="form-control" aria-label="Default select example" name="agencyCategoryID">
                                         <option value="">Select Category</option>
                                         @foreach (@$processing as $value)
@@ -156,6 +157,7 @@
                                 
 
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Agency Category</label>
                                     <select class="form-control" aria-label="Default select example" name="emcatId"
                                         id="empCategoryId">
                                         <option value="">Select Category</option>

@@ -104,6 +104,7 @@
                             <form method="post" action="{{ route('gewog.store') }}">@csrf
 
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Dzongkhag</label>
                                     <select class="form-control" aria-label="Default select example" name="DzoID">
                                         <option value="">Select</option>
                                         @foreach (@$processing as $value)
@@ -149,6 +150,7 @@
                                 
 
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Dzongkhag</label>
                                     <select class="form-control" aria-label="Default select example" name="DzoID"
                                         id="DzoNameId">
                                         <option value="">Select</option>
