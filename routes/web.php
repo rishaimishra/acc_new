@@ -330,6 +330,50 @@ Route::post('assign-complaint-post',[AssignComplaintController::class,'postAssig
 Route::post('assign-complaint-post-update',[AssignComplaintController::class,'postAssignUpdate'])->name('assign.complaint.post.update');
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('complaint-view-details/attachment-details/{id}',[AssignComplaintController::class,'viewDetailsAttachment'])->name('complaint.view.details.attachment.details');
+
+Route::get('complaint-view-details/person-involved-details/{id}',[AssignComplaintController::class,'viewDetailsPersonInvolved'])->name('complaint.view.details.aperson-involved-details');
+
+Route::get('complaint-view-details/case-link-details/{id}',[AssignComplaintController::class,'viewDetailsCaseLink'])->name('complaint.view.details.case-link-details');
+
+
+// assign-complaint-regional
+Route::get('assign-complaint-regional',[AssignComplaintRegional::class,'list'])->name('assign.complaint.regional');
+Route::get('complaint-view-details-regional/{id}',[AssignComplaintRegional::class,'viewDetails'])->name('complaint.view.details.regional');
+Route::post('assign-complaint-post-regional',[AssignComplaintRegional::class,'postAssign'])->name('assign.complaint.post.regional');
+Route::post('assign-complaint-post-update-regional',[AssignComplaintRegional::class,'postAssignUpdate'])->name('assign.complaint.post.update.regional');
+
+
+Route::get('complaint-view-details-regional/attachment-details/{id}',[AssignComplaintRegional::class,'viewDetailsAttachment'])->name('complaint.view.details.attachment.details.regional');
+
+Route::get('complaint-view-details-regional/person-involved-details/{id}',[AssignComplaintRegional::class,'viewDetailsPersonInvolved'])->name('complaint.view.details.aperson-involved-details.regional');
+
+Route::get('complaint-view-details-regional/case-link-details/{id}',[AssignComplaintRegional::class,'viewDetailsCaseLink'])->name('complaint.view.details.case-link-details.regional');
+
+
+
+
+// complaint-evaluation
+Route::get('complaint-evaluation-list',[EvaluationController::class,'index'])->name('complaint.evaluate.list');
+Route::get('complaint-evaluation-list/coi/{id}',[EvaluationController::class,'coi'])->name('complaint.conflict.interest');
+Route::post('complaint-coi-post-decision',[EvaluationController::class,'postDecision'])->name('complaint.evaluate.conflict.decision');
+
 Route::post('embassys-edit',[EmbasyController::class,'EditEmbassy'])->name('embasy.edit');
 Route::post('empcategory-edit',[EmpCatController::class,'EditEmpCat'])->name('emp.cat.edit');
 Route::post('gewog-edit',[GewogController::class,'EditGewog'])->name('gewog.edit.update');
