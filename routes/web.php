@@ -30,6 +30,10 @@ use App\Http\Controllers\AssignComplaint\AssignComplaintController;
 use App\Http\Controllers\EmpCat\EmpCatController;
 use App\Http\Controllers\agency\AgencyController;
 use App\Http\Controllers\Corrupt\CorruptionController;
+
+
+use App\Http\Controllers\AssignComplaintRegional;
+use App\Http\Controllers\Evaluation\EvaluationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -334,18 +338,6 @@ Route::post('assign-complaint-post-update',[AssignComplaintController::class,'po
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 Route::get('complaint-view-details/attachment-details/{id}',[AssignComplaintController::class,'viewDetailsAttachment'])->name('complaint.view.details.attachment.details');
 
 Route::get('complaint-view-details/person-involved-details/{id}',[AssignComplaintController::class,'viewDetailsPersonInvolved'])->name('complaint.view.details.aperson-involved-details');
@@ -366,13 +358,25 @@ Route::get('complaint-view-details-regional/person-involved-details/{id}',[Assig
 
 Route::get('complaint-view-details-regional/case-link-details/{id}',[AssignComplaintRegional::class,'viewDetailsCaseLink'])->name('complaint.view.details.case-link-details.regional');
 
-
+Route::post('embassys-edit',[EmbasyController::class,'EditEmbassy'])->name('embasy.edit');
 
 
 // complaint-evaluation
 Route::get('complaint-evaluation-list',[EvaluationController::class,'index'])->name('complaint.evaluate.list');
 Route::get('complaint-evaluation-list/coi/{id}',[EvaluationController::class,'coi'])->name('complaint.conflict.interest');
 Route::post('complaint-coi-post-decision',[EvaluationController::class,'postDecision'])->name('complaint.evaluate.conflict.decision');
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::post('embassys-edit',[EmbasyController::class,'EditEmbassy'])->name('embasy.edit');
 Route::post('empcategory-edit',[EmpCatController::class,'EditEmpCat'])->name('emp.cat.edit');
