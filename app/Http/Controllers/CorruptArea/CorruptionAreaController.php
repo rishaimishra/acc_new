@@ -40,7 +40,15 @@ class CorruptionAreaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //  dd($request);
+        $dzonkhag = new CorruptionArea();
+        $dzonkhag->name = $request->name;
+        $dzonkhag->remarks = $request->remarks;
+        $dzonkhag->isDelete = 0;
+        $dzonkhag->save();
+
+        Alert::success('You\'ve Successfully Added A Corruption Area ');
+        return Redirect::back();
     }
 
     /**
@@ -87,4 +95,24 @@ class CorruptionAreaController extends Controller
     {
         //
     }
+
+    public function deleteCoruptArea($id){
+        // dd($id);
+        CorruptionArea::where(['corruptionAreaID' => $id])->delete();
+        Alert::success(' Corruption Area Deleted Successfully');
+        return redirect()->back();
+    }
+
+    public function EditCorruparea(Request $request){
+        // dd($request);
+        $person = new CorruptionArea;
+            $person->where(['corruptionAreaID' => $request->corruptionAreaID])->update([
+                'name' => $request->name,
+                'remarks' => $request->remarks,
+            ]);
+
+            Alert::success(' Corruption Area Updated Successfully');
+            return redirect()->back();
+    }
+
 }

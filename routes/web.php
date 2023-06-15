@@ -30,6 +30,7 @@ use App\Http\Controllers\AssignComplaint\AssignComplaintController;
 use App\Http\Controllers\EmpCat\EmpCatController;
 use App\Http\Controllers\agency\AgencyController;
 use App\Http\Controllers\Corrupt\CorruptionController;
+use App\Http\Controllers\CorruptArea\CorruptionAreaController;
 
 
 use App\Http\Controllers\AssignComplaintRegional;
@@ -293,6 +294,7 @@ Route::resource('embassy', EmbasyController::class);
 Route::resource('emp-category', EmpCatController::class);
 Route::resource('agency', AgencyController::class);
 Route::resource('corruption-type', CorruptionController::class);
+Route::resource('corruption-area', CorruptionAreaController::class);
 
 
 Route::get('dzonkhags/{id}',[DzonkhagController::class,'deleteDz'])->name('dzonkhag.delete');
@@ -304,6 +306,7 @@ Route::get('embassys/{id}',[EmbasyController::class,'deleteEmbassy'])->name('emb
 Route::get('employee-cat/{id}',[EmpCatController::class,'deleteEmpCat'])->name('emp.category.delete');
 Route::get('agencys/{id}',[AgencyController::class,'deleteAgency'])->name('agency.delete');
 Route::get('corruption-types/{id}',[CorruptionController::class,'deleteCoruptype'])->name('corruptype.delete');
+Route::get('corruption-areas/{id}',[CorruptionAreaController::class,'deleteCoruptArea'])->name('corruparea.delete');
 
 
 // complaint-masters
@@ -386,3 +389,4 @@ Route::get('gewog-list-per-dzonkhag/{id}',[VillageController::class,'gewoglistAs
 Route::post('constituency-edit',[ConstituencyController::class,'EditConstituency'])->name('constituency.edit.update');
 Route::post('agency-edit',[AgencyController::class,'EditAgency'])->name('agency.edit.update');
 Route::post('corrupt-type-edit',[CorruptionController::class,'EditCorruptype'])->name('corruptype.edit.update');
+Route::post('corrupt-area-edit',[CorruptionAreaController::class,'EditCorruparea'])->name('corruparea.edit.update');
