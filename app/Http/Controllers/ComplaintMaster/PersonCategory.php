@@ -31,4 +31,13 @@ class PersonCategory extends Controller
         Alert::success('You\'ve Successfully Deleted A Person Category');
         return Redirect::back();
     }
+
+    public function update(Request $request)
+    {
+        personCategoryModel::where('personCategoryID',$request->id)->update([
+            'categoryName'=>$request->categoryName,
+        ]);
+        Alert::success('You\'ve Successfully Updated A Person Category');
+        return Redirect::back();
+    }
 }

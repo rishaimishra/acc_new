@@ -31,4 +31,13 @@ class SourceController extends Controller
         Alert::success('You\'ve Successfully Deleted A Complaint Source');
         return Redirect::back();
     }
+
+    public function update(Request $request)
+    {
+        ComplaintSource::where('sourceOfcomplaintsID',$request->id)->update([
+            'complaintSourceName'=>$request->complaintSourceName,
+        ]);
+        Alert::success('You\'ve Successfully Updated A Complaint Source');
+        return Redirect::back();
+    }
 }

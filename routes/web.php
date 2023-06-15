@@ -312,23 +312,31 @@ Route::get('corruption-areas/{id}',[CorruptionAreaController::class,'deleteCorup
 // complaint-masters
 Route::get('complaint-mode',[ComplaintMasterController::class,'list'])->name('complaint-mode-master');
 Route::post('complaint-mode/add',[ComplaintMasterController::class,'add'])->name('complaint-mode-master.add');
+Route::post('complaint-mode/update',[ComplaintMasterController::class,'add'])->name('complaint-mode-master.update');
 Route::get('complaint-mode/delete/{id}',[ComplaintMasterController::class,'delete'])->name('complaint-mode-master.delete');
 
 // complaint-type
 Route::get('complaint-type',[ComplaintType::class,'list'])->name('complaint-type-master');
 Route::post('complaint-type/add',[ComplaintType::class,'add'])->name('complaint-type-master.add');
 Route::get('complaint-type/delete/{id}',[ComplaintType::class,'delete'])->name('complaint-type-master.delete');
-
+Route::post('complaint-type/update',[ComplaintType::class,'update'])->name('complaint-type-master.update');
 // source
 Route::get('source-complaint',[SourceController::class,'list'])->name('source-complaint-master');
 Route::post('source-complaint/add',[SourceController::class,'add'])->name('source-complaint-master.add');
 Route::get('source-complaint/delete/{id}',[SourceController::class,'delete'])->name('source-complaint-master.delete');
-
+Route::post('source-complaint/update',[SourceController::class,'update'])->name('source-complaint-master.update');
 // person-category
 Route::get('person-category',[PersonCategory::class,'list'])->name('person-category-master');
 Route::post('person-category/add',[PersonCategory::class,'add'])->name('person-category-master.add');
 Route::get('person-category/delete/{id}',[PersonCategory::class,'delete'])->name('person-category-master.delete');
+Route::post('person-category/update',[PersonCategory::class,'update'])->name('person-category-master.update');
 
+
+// followup-status
+Route::get('followup-status',[App\Http\Controllers\Pursuability\FollowUpController::class,'list'])->name('followup-status-master');
+Route::post('followup-status/add',[App\Http\Controllers\Pursuability\FollowUpController::class,'add'])->name('followup-status-master.add');
+Route::get('followup-status/delete/{id}',[App\Http\Controllers\Pursuability\FollowUpController::class,'delete'])->name('followup-status-master.delete');
+Route::post('followup-status/update',[App\Http\Controllers\Pursuability\FollowUpController::class,'update'])->name('followup-status-master.update');
 
 // assign-complaint
 Route::get('assign-complaint',[AssignComplaintController::class,'list'])->name('assign.complaint');
@@ -369,12 +377,36 @@ Route::get('complaint-evaluation-list',[EvaluationController::class,'index'])->n
 Route::get('complaint-evaluation-list/coi/{id}',[EvaluationController::class,'coi'])->name('complaint.conflict.interest');
 Route::post('complaint-coi-post-decision',[EvaluationController::class,'postDecision'])->name('complaint.evaluate.conflict.decision');
 
+// ce_pltblpvaluecategory
+Route::get('pursuability-value-category',[App\Http\Controllers\Pursuability\CategoryController::class,'index'])->name('manage.pursuability-value-category');
+
+Route::post('pursuability-value-category/insert',[App\Http\Controllers\Pursuability\CategoryController::class,'insert'])->name('manage.pursuability-value-category.insert');
+Route::post('pursuability-value-category/update',[App\Http\Controllers\Pursuability\CategoryController::class,'update'])->name('manage.pursuability-value-category.update');
+
+Route::get('pursuability-value-category/delete/{id}',[App\Http\Controllers\Pursuability\CategoryController::class,'delete'])->name('manage.pursuability-value-category.delete');
 
 
+// ce_pltblpvaluecategory-sub-category
+Route::get('pursuability-value-sub-category',[App\Http\Controllers\Pursuability\SubCategoryController::class,'index'])->name('manage.pursuability-value-sub-category');
+
+Route::post('pursuability-value-sub-category/insert',[App\Http\Controllers\Pursuability\SubCategoryController::class,'insert'])->name('manage.pursuability-value-sub-category.insert');
+Route::post('pursuability-value-sub-category/update',[App\Http\Controllers\Pursuability\SubCategoryController::class,'update'])->name('manage.pursuability-value-sub-category.update');
+
+Route::get('pursuability-value-sub-category/delete/{id}',[App\Http\Controllers\Pursuability\SubCategoryController::class,'delete'])->name('manage.pursuability-value-sub-category.delete');
+
+// ce_pltblvalue-fields
 
 
+Route::get('pursuability-value-feilds',[App\Http\Controllers\Pursuability\ValueFields::class,'index'])->name('manage.pursuability-value-feilds');
+
+Route::post('pursuability-value-feilds/insert',[App\Http\Controllers\Pursuability\ValueFields::class,'insert'])->name('manage.pursuability-value-feilds.insert');
+Route::post('pursuability-value-feilds/update',[App\Http\Controllers\Pursuability\ValueFields::class,'update'])->name('manage.pursuability-value-feilds.update');
+
+Route::get('pursuability-value-feilds/delete/{id}',[App\Http\Controllers\Pursuability\ValueFields::class,'delete'])->name('manage.pursuability-value-feilds.delete');
 
 
+// masters-landing-page
+Route::get('masters-landing-page',[App\Http\Controllers\Pursuability\ValueFields::class,'masters'])->name('masters.landing.page');
 
 
 

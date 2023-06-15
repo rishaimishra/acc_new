@@ -31,4 +31,13 @@ class ComplaintType extends Controller
         Alert::success('You\'ve Successfully Deleted A Complaint Type');
         return Redirect::back();
     }
+
+    public function update(Request $request)
+    {
+        complaintTypeModel::where('id',$request->id)->update([
+            'complainttypeName'=>$request->complainttypeName,
+        ]);
+        Alert::success('You\'ve Successfully Updated A Complaint Type');
+        return Redirect::back();
+    }
 }
