@@ -83,7 +83,7 @@ a.active {
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Processing Type<span style="font-weight: bold; color: red;">*</span></label>
-                            <select class="form-control" name="compliantProcessingType">
+                            <select class="form-control" name="compliantProcessingType" @if(@request('')==$value->complaintProcessingTypeID) selected @endif>
                                 <option value="">Select</option>
                                 @foreach(@$processing as $value)
                                 <option value="{{$value->complaintProcessingTypeID}}">{{@$value->processingTypeName}}</option>
@@ -204,7 +204,7 @@ a.active {
 
                     <div class="col-sm-12">
                     <div class="form-group">
-                        <label>Select Agency<span style="font-weight: bold; color: red;"></span></label>
+                        <label> Agency<span style="font-weight: bold; color: red;"></span></label>
                        <select class="form-control" name="department_others" id="department_others">
                                 <option value="">Select</option>
                        </select>
@@ -218,7 +218,7 @@ a.active {
 
                     <div class="col-sm-12">
                     <div class="form-group">
-                        <label>Select Dzongkha<span style="font-weight: bold; color: red;"></span></label>
+                        <label> Dzongkha<span style="font-weight: bold; color: red;"></span></label>
                        <select class="form-control" name="Against_agency" id="Against_agency">
                                 <option value="">Select</option>
                                 @foreach(@$dzongkhag as $value)
@@ -230,7 +230,7 @@ a.active {
 
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label>Select Constituency<span style="font-weight: bold; color: red;"></span></label>
+                        <label> Constituency<span style="font-weight: bold; color: red;"></span></label>
                        <select class="form-control" name="Against_department" id="Against_department">
                                 <option value="">Select</option>
                                
@@ -245,7 +245,7 @@ a.active {
                 <div class="twenty_two" style="display:none">
                     <div class="col-sm-12">
                     <div class="form-group">
-                        <label>Select Agency<span style="font-weight: bold; color: red;"></span></label>
+                        <label> Agency<span style="font-weight: bold; color: red;"></span></label>
                        <select class="form-control" name="agency_againt_twenty_two" id="agency_againt_twenty_two">
                                 <option value="">Select</option>
                        </select>
@@ -254,7 +254,7 @@ a.active {
 
                     <div class="col-sm-12" >
                     <div class="form-group Against_department_twenty_two_class" style="display:none">
-                        <label>Select Department<span style="font-weight: bold; color: red;"></span></label>
+                        <label> Department<span style="font-weight: bold; color: red;"></span></label>
                        <select class="form-control" name="Against_department_twenty_two" id="Against_department_twenty_two_id">
                                 <option value="">Select</option>
                                 @foreach(@$dzongkhag as $value)

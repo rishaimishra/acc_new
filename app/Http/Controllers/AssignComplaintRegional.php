@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\AssignComplaint;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use App\Models\Complaint\complaintRegistrationModel;
 use App\Models\Complaint\complaintReceivedByModel;
@@ -17,13 +17,14 @@ use App\Models\Complaint\personModel;
 use App\Models\Complaint\GenderModel;
 use App\Models\Complaint\personCategoryModel;
 use App\Models\Complaint\link_Repeated_Complaint;
-class AssignComplaintController extends Controller
+use App\Models\RegionAssignUser;
+class AssignComplaintRegional extends Controller
 {
     public function list()
     {
         $data = [];
-        $data['data'] = complaintRegistrationModel::orderBy('complaintID','desc')->get();
-        return view('assign_complaint.list',$data);
+        $data['data'] = complaintRegistrationModel::orderBy('complaintID','desc')->where('assign_to','R')->get();
+        return view('regional_assign.list',$data);
     }
 
     public function viewDetails($id)
@@ -34,9 +35,10 @@ class AssignComplaintController extends Controller
         $data['received_users'] = complaintReceivedByModel::where('complaintID',$id)->get();
         $data['user'] = User::get();
         $data['regional_office'] = RegionalOffice::get();
-        $data['assignUsers'] = ComplaintAssignUser::where('complaint_id',$id)->pluck('user_id')->toArray();
-        return view('assign_complaint.view',$data);
+        $data['assignUsers'] = RegionAssignUser::where('complaint_id',$id)->pluck('user_id')->toArray();
+        return view('regional_assign.view',$data);
     }
+
 
     public function postAssign(Request $request)
     {   
@@ -46,36 +48,24 @@ class AssignComplaintController extends Controller
            return redirect()->back();
         }
         
-        if (@$request->assign_to=="H") {
-            $regional_office = '';
-            $headquater_user_id = $request->headquater_user_id;
-            $regional_user_id = '';
-        }else{
-            $regional_office =@$request->regional_office;
-            $headquater_user_id = '';
-            $regional_user_id = '';
-        }
+        
         complaintRegistrationModel::where('complaintID',$request->complaintID)->update([
-            'assign_to'=>$request->assign_to,
-            'regional_office'=>$regional_office,
-            'instruction'=>$request->instruction,
-            'assign_status'=>'Y',
-            'headquater_user_id'=>$headquater_user_id,
-            'regional_user_id'=>$regional_user_id,
+            'regional_assign_status'=>'Y',
+            'regional_instruction'=>$request->instruction,
+            'regional_user_id'=>$request->regional_user_id,
         ]);
 
-        // if (@$request->assign_to=="H") {
-        //     if (isset($request['assignUsers'])) {
-        //         foreach ($request['assignUsers'] as $receivedByUserID) {
-        //             $receiver = new ComplaintAssignUser;
-        //             $receiver->complaint_id  = $request->complaintID;
-        //             $receiver->user_id = $receivedByUserID;
-        //             $receiver->save();
-        //         }
-        //     }
-        // }
+            // if (isset($request['assignUsers'])) {
+            //     foreach ($request['assignUsers'] as $receivedByUserID) {
+            //         $receiver = new RegionAssignUser;
+            //         $receiver->complaint_id  = $request->complaintID;
+            //         $receiver->user_id = $receivedByUserID;
+            //         $receiver->save();
+            //     }
+            // }
+        
 
-        Alert::success('Complaint Assigned Successfully');  
+        Alert::success('Regional Complaint Assigned Successfully');  
         return redirect()->back();
 
 
@@ -97,51 +87,38 @@ class AssignComplaintController extends Controller
 
 
 
-        if (@$request->assign_to=="H") {
-             $regional_office = '';
-             $headquater_user_id = $request->headquater_user_id;
-             $regional_user_id = '';
-        }else{
-            $regional_office =@$request->regional_office;
-            $headquater_user_id = '';
-            $regional_user_id = '';
-        }
+       
         complaintRegistrationModel::where('complaintID',$request->complaintID)->update([
-            'assign_to'=>$request->assign_to,
-            'regional_office'=>$regional_office,
-            'instruction'=>$request->instruction,
-            'reason_change'=>$request->reason_change,
-            'assign_status'=>'Y',
-            'headquater_user_id'=>$headquater_user_id,
-            'regional_user_id'=>$regional_user_id,
+            'regional_assign_status'=>'Y',
+            'regional_instruction'=>$request->instruction,
+            'regional_reason_change'=>$request->reason_change,
+            'regional_user_id'=>$request->regional_user_id,
         ]);
 
-        // if (@$request->assign_to=="H") {
-        //     if (isset($request['assignUsers'])) {
+        
+            // if (isset($request['assignUsers'])) {
 
-        //         ComplaintAssignUser::where(['complaint_id' => $request->complaintID])->delete();
-        //         foreach ($request['assignUsers'] as $receivedByUserID) {
-        //             $receiver = new ComplaintAssignUser;
-        //             $receiver->complaint_id = $request->complaintID;
-        //             $receiver->user_id = $receivedByUserID;
-        //             $receiver->save();
-        //         }
-        //     }
-        // }else{
-        //     $ids = explode(',',$request->complaintID);
-        //     ComplaintAssignUser::where('complaint_id',$ids)->delete();
-        // }
+            //     RegionAssignUser::where(['complaint_id' => $request->complaintID])->delete();
+            //     foreach ($request['assignUsers'] as $receivedByUserID) {
+            //         $receiver = new RegionAssignUser;
+            //         $receiver->complaint_id = $request->complaintID;
+            //         $receiver->user_id = $receivedByUserID;
+            //         $receiver->save();
+            //     }
+            // }
+        
 
-        Alert::success('Complaint Re-Assigned Successfully');  
+        Alert::success('Regional Complaint Re-Assigned Successfully');  
         return redirect()->back();
     }
+
 
     public function viewDetailsAttachment($id)
     {
         $data = [];
         $data['data'] = Attachment::where('complaintID',$id)->get();
         $data['id'] = $id;
-        return view('assign_complaint.attachment',$data);
+        return view('regional_assign.attachment',$data);
     }
 
     public function viewDetailsPersonInvolved($id)
@@ -155,7 +132,7 @@ class AssignComplaintController extends Controller
             ->where(['cr_linkcomplaint_person_category.complaintID' => $id, 'tblperson.isDelete' => 0])
             ->get();
             $data['id'] = $id;
-        return view('assign_complaint.person_involved',$data);
+        return view('regional_assign.person_involved',$data);
     }
 
     public function viewDetailsCaseLink($id)
@@ -163,6 +140,6 @@ class AssignComplaintController extends Controller
         $data = [];
         $data['person_involved'] = link_Repeated_Complaint::where('newComplaintID',$id)->where('isDelete','0')->with('repeatedComplaint_registrationRelation','repeatedComplaint_registrationRelation.complaintmoderelation','repeatedComplaint_registrationRelation.complaintTyperelation')->get();
         $data['id'] = $id;
-        return view('assign_complaint.case_link',$data);
+        return view('regional_assign.case_link',$data);
     }
 }

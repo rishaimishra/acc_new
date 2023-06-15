@@ -39,6 +39,26 @@
             </ul>
 
 
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{ route('assign.complaint') }}" class="nav-link">
+                       <i class="fa fa-assistive-listening-systems" aria-hidden="true"></i>
+                            <p>Assign Complaint</p>
+                    </a>
+                </li>
+            </ul>
+
+
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{ route('assign.complaint.regional') }}" class="nav-link">
+                       <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <p>Regional Assign Complaint</p>
+                    </a>
+                </li>
+            </ul>
+
+
             @if((Auth::user()->role=='Director') && (Auth::user()->department=='Department of Investigation'))
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">

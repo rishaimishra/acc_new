@@ -21,17 +21,17 @@
 
         <ul class="nav nav-pills mb-3 shadow-sm" id="pills-tab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active btn btn-info" href="{{route('complaint.view.details.regional',['id'=>@$id])}}">Complaint Details</a>
+          <a class="nav-link active btn btn-info" href="{{route('complaint.view.details',['id'=>@$id])}}">Complaint Details</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link "  href="{{route('complaint.view.details.attachment.details.regional',['id'=>@$id])}}">Attachment Details</a>
+          <a class="nav-link "  href="{{route('complaint.view.details.attachment.details',['id'=>@$id])}}">Attachment Details</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{route('complaint.view.details.aperson-involved-details.regional',['id'=>@$id])}}" >Person Involved</a>
+          <a class="nav-link" href="{{route('complaint.view.details.aperson-involved-details',['id'=>@$id])}}" >Person Involved</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{route('complaint.view.details.case-link-details.regional',['id'=>@$id])}}">Link Case</a>
+          <a class="nav-link" href="{{route('complaint.view.details.case-link-details',['id'=>@$id])}}">Link Case</a>
         </li>
       </ul>
 
@@ -98,26 +98,18 @@
 
                 
          <div class="col-sm-12">  
-        @if(@$data->assign_status=="N")       
-        <form method="post" action="{{route('assign.complaint.post')}}" enctype="multipart/form-data">
+        @if(@$data->regional_assign_status=="N")       
+        <form method="post" action="{{route('assign.complaint.post.regional')}}" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="complaintID" value="{{@$id}}">
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label>Assign To<span style="font-weight: bold; color: red;">*</span></label>
-                            <select class="form-control" name="assign_to" id="assign_to">
-                                <option value="H">Head Quater</option>
-                                <option value="R">Regional Office</option>
-                            </select>
-                    </div>
-                </div>
+                
 
 
                 <div class="col-sm-12" id="assignUsers_div">
                     <div class="form-group">
                         <label>Assign Users<span style="font-weight: bold; color: red;">*</span></label>
-                            <select class="form-control" name="headquater_user_id">
+                            <select class="form-control" name="regional_user_id">
                             @foreach(@$user as $value)
                             <option value="{{@$value->id}}">{{@$value->name}}</option>
                             @endforeach 
@@ -132,16 +124,7 @@
                 </div>
 
 
-                <div class="col-sm-12" id="regional_office_div" style="display:none">
-                    <div class="form-group">
-                        <label>Regional Office<span style="font-weight: bold; color: red;">*</span></label>
-                            <select class="form-control" name="regional_office">
-                                @foreach(@$regional_office as $value)
-                                <option value="{{@$value->id}}">{{@$value->name}}</option>
-                                @endforeach
-                            </select>
-                    </div>
-                </div>
+                
 
 
 
@@ -161,31 +144,24 @@
 
         @else
 
-            <form method="post" action="{{route('assign.complaint.post.update')}}" enctype="multipart/form-data">
+            <form method="post" action="{{route('assign.complaint.post.update.regional')}}" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="complaintID" value="{{@$id}}">
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label>Assign To<span style="font-weight: bold; color: red;">*</span></label>
-                            <select class="form-control" name="assign_to" id="assign_to">
-                                <option value="H" @if(@$data->assign_to=="H") selected @endif>Head Quater</option>
-                                <option value="R" @if(@$data->assign_to=="R") selected @endif>Regional Office</option>
-                            </select>
-                    </div>
-                </div>
+                
 
 
-                <div class="col-sm-12" id="assignUsers_div"  @if(@$data->assign_to=="H") style="display:block" @else style="display:none" @endif>
+                <div class="col-sm-12" id="assignUsers_div"  >
                     <div class="form-group">
                         <label>Assign Users<span style="font-weight: bold; color: red;">*</span></label>
                             <br>
 
-                            <select class="form-control" name="headquater_user_id">
+                            <select class="form-control" name="regional_user_id">
                             @foreach(@$user as $value)
-                            <option value="{{@$value->id}}" @if(@$data->headquater_user_id==@$value->id) selected @endif>{{@$value->name}}</option>
+                            <option value="{{@$value->id}}" @if(@$data->regional_user_id==@$value->id) selected @endif>{{@$value->name}}</option>
                             @endforeach 
                             </select>
+
 
                             {{-- <select class="select2-multiple form-control" style="width:100%" name="assignUsers[]" multiple="multiple"
                             id="select2Multiple">
@@ -197,22 +173,13 @@
                 </div>
 
 
-                <div class="col-sm-12" id="regional_office_div" @if(@$data->assign_to=="R") style="display:block" @else style="display:none" @endif>
-                    <div class="form-group">
-                        <label>Regional Office<span style="font-weight: bold; color: red;">*</span></label>
-                            <select class="form-control" name="regional_office">
-                                @foreach(@$regional_office as $value)
-                                <option value="{{@$value->id}}" @if(@$data->regional_office==@$value->id) selected @endif>{{@$value->name}}</option>
-                                @endforeach
-                            </select>
-                    </div>
-                </div>
+                
 
 
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label>Reason<span style="font-weight: bold; color: red;">*</span></label>
-                            <textarea class="form-control" required  type="text" name="reason_change"> {{@$data->reason_change}} </textarea>
+                            <textarea class="form-control" required  type="text" name="reason_change"> {{@$data->regional_reason_change}} </textarea>
                     </div>
                 </div>
 

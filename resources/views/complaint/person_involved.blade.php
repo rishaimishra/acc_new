@@ -204,7 +204,7 @@
                             @foreach(@$gender as $key=> $value)    
                             <div class="form-check form-check-inline">
                               
-                              <input class="form-check-input" type="radio" id="genderInput_{{@$value->id}}" name="gender" value="{{@$value->id}}">
+                              <input class="form-check-input" type="radio" id="genderInput_{{@$value->id}}" @if($key==0) checked @endif name="gender" value="{{@$value->id}}">
                               <label class="form-check-label" for="genderInput">{{@$value->name}}</label>
                               
                             </div>

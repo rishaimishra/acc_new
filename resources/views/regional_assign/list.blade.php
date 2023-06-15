@@ -38,13 +38,13 @@ href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTabl
                                            <td>{{@$value->complaintTitle}}</td>
                                            <td>{{@$value->complaintmoderelation->modeName}}</td>
 
-                                           <td>@if(@$value->assign_status=="N") Registered @else Assigned  @endif</td>
+                                           <td>@if(@$value->regional_assign_status=="N") Registered @else Assigned  @endif</td>
 
                                            <td>
-                                              @if(@$value->assign_status=="N")
-                                               <a href="{{route('complaint.view.details',['id'=>@$value->complaintID])}}" class="btn btn-info">Assign</a>
+                                              @if(@$value->regional_assign_status=="N")
+                                               <a href="{{route('complaint.view.details.regional',['id'=>@$value->complaintID])}}" class="btn btn-info">Assign</a>
                                                @else
-                                               <a href="{{route('complaint.view.details',['id'=>@$value->complaintID])}}" class="btn btn-info">Reassign</a>
+                                               <a href="{{route('complaint.view.details.regional',['id'=>@$value->complaintID])}}" class="btn btn-info">Reassign</a>
                                                @endif
                                            </td>
 

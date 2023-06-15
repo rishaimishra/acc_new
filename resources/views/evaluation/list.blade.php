@@ -24,7 +24,7 @@ href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTabl
                                         <th>Complaint Registration Date</th>
                                         <th>Complaint Tile</th>
                                         <th>Mode</th>
-                                        <th>Status</th>
+                                        {{-- <th>Status</th> --}}
                                         <th>Action</th>            
                                     </tr>
                                 </thead>
@@ -38,13 +38,13 @@ href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTabl
                                            <td>{{@$value->complaintTitle}}</td>
                                            <td>{{@$value->complaintmoderelation->modeName}}</td>
 
-                                           <td>@if(@$value->assign_status=="N") Registered @else Assigned  @endif</td>
+                                           {{-- <td>@if(@$value->assign_status=="N") Registered @else Assigned  @endif</td> --}}
 
                                            <td>
-                                              @if(@$value->assign_status=="N")
-                                               <a href="{{route('complaint.view.details',['id'=>@$value->complaintID])}}" class="btn btn-info">Assign</a>
+                                              @if(@$value->evaluation_status=="AA")
+                                               <a href="{{route('complaint.conflict.interest',['id'=>@$value->complaintID])}}" class="btn btn-info">COI</a>
                                                @else
-                                               <a href="{{route('complaint.view.details',['id'=>@$value->complaintID])}}" class="btn btn-info">Reassign</a>
+                                               <a href="{{route('complaint.view.details',['id'=>@$value->complaintID])}}" class="btn btn-info">Evaluate</a>
                                                @endif
                                            </td>
 
