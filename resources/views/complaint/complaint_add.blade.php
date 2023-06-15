@@ -83,7 +83,7 @@ a.active {
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>Processing Type<span style="font-weight: bold; color: red;">*</span></label>
-                            <select class="form-control" name="compliantProcessingType" @if(@request('')==$value->complaintProcessingTypeID) selected @endif>
+                            <select class="form-control" name="compliantProcessingType" >
                                 <option value="">Select</option>
                                 @foreach(@$processing as $value)
                                 <option value="{{$value->complaintProcessingTypeID}}">{{@$value->processingTypeName}}</option>
@@ -103,7 +103,7 @@ a.active {
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label>Complaint Title<span style="font-weight: bold; color: red;">*</span></label>
-                            <input type="text" class="form-control" name="complaint_title" >
+                            <input type="text" class="form-control" name="complaint_title" required>
                     </div>
                 </div>
 
@@ -118,16 +118,16 @@ a.active {
 
                  <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Occurrence From<span style="font-weight: bold; color: red;">*</span></label>
-                            <input class="form-control" name="complaintOccurrenceFrom" type="date" required>
+                        <label>Occurrence From<span style="font-weight: bold; color: red;"></span></label>
+                            <input class="form-control" name="complaintOccurrenceFrom" type="date" >
                     </div>
                 </div>
 
 
                  <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Occurrence Till<span style="font-weight: bold; color: red;">*</span></label>
-                            <input class="form-control" name="complaintOccurrenceTill" type="date" required>
+                        <label>Occurrence Till<span style="font-weight: bold; color: red;"></span></label>
+                            <input class="form-control" name="complaintOccurrenceTill" type="date" >
                     </div>
                 </div>
 

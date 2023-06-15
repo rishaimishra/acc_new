@@ -59,6 +59,16 @@
             </ul>
 
 
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{ route('complaint.evaluate.list') }}" class="nav-link">
+                       <i class="fa fa-ravelry" aria-hidden="true"></i>
+                            <p>Complaint Evaluation</p>
+                    </a>
+                </li>
+            </ul>
+
+
             @if((Auth::user()->role=='Director') && (Auth::user()->department=='Department of Investigation'))
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
