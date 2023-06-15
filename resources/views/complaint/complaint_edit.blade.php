@@ -80,16 +80,16 @@
 
                  <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Occurrence From<span style="font-weight: bold; color: red;">*</span></label>
-                            <input class="form-control" name="complaintOccurrenceFrom"  value="{{@$data->occurrencePeriodFrom}}" type="date" required>
+                        <label>Occurrence From<span style="font-weight: bold; color: red;"></span></label>
+                            <input class="form-control" name="complaintOccurrenceFrom"  value="{{@$data->occurrencePeriodFrom}}" type="date" >
                     </div>
                 </div>
 
 
                  <div class="col-sm-4">
                     <div class="form-group">
-                        <label>Occurrence Till<span style="font-weight: bold; color: red;">*</span></label>
-                            <input class="form-control" name="complaintOccurrenceTill"  value="{{@$data->occurrencePeriodTill}}" type="date" required>
+                        <label>Occurrence Till<span style="font-weight: bold; color: red;"></span></label>
+                            <input class="form-control" name="complaintOccurrenceTill"  value="{{@$data->occurrencePeriodTill}}" type="date" >
                     </div>
                 </div>
 
@@ -110,7 +110,7 @@
 
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Complaint Mode<span style="font-weight: bold; color: red;"></span></label>
+                        <label>Complaint Mode<span style="font-weight: bold; color: red;">*</span></label>
                             <select class="form-control" name="complaintMode">
                                 <option value="">Select</option>
                                 @foreach(@$mode as $value)
