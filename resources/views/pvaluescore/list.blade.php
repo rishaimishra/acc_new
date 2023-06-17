@@ -1,4 +1,3 @@
-
 @extends('layouts.admin')
 
 @section('content')
@@ -18,7 +17,7 @@
                                 <div class="col-sm">
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#exampleModaPlValueRange">
+                                        data-target="#exampleModaPlValueScope">
                                         Add
                                     </button>
                                 </div>
@@ -53,21 +52,21 @@
                                                 <td>{{ $att->startValue }} - {{ $att->endValue }}</td>
                                                 <td>{{ $att->compEvaDecisionName }}</td>
                                                 <td>
-                                                  
+
 
                                                     {{-- <a type="button"
                                                         class="btn btn-xs btn-primary row-class-{{ @$att->pValueRangeID }}"
                                                         data-row-data='{{ @$att->startValue }}' data-toggle="modal"
                                                         onclick="openEditModalCorruptype({{ @$att->pValueRangeID }},`{{ @$att->endValue }}`)">
                                                         Edit
-                                                    </a>
+                                                    </a> --}}
 
                                                     <a class="btn btn-xs btn-danger"
-                                                        href="{{ route('value.rangepl.delete', ['id' => @$att->pValueRangeID]) }}"
+                                                        href="{{ route('value.scope.delete', ['id' => @$att->lpvalueCompDecisionID]) }}"
                                                         onclick="return confirm('Are you sure , you want to delete this ? ')"><i
                                                             class="fa fa-trash"></i>
                                                         Delete
-                                                    </a> --}}
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -86,8 +85,8 @@
 
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModaPlValueRange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="exampleModaPlValueScope" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -97,19 +96,26 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('pl-value-range.store') }}">@csrf
+                            <form method="post" action="{{ route('pl-value-scope.store') }}">@csrf
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Start</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="startValue"
-                                        aria-describedby="emailHelp" placeholder="Start Value">
-                                    {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+                                    <label for="exampleInputEmail1">Score Range</label>
+                                    <select class="form-control" aria-label="Default select example" name="pValueRangeID">
+                                        <option value="">Select</option>
+                                        @foreach (@$processing as $value)
+                                            <option value="{{ $value->pValueRangeID }}">{{ $value->startValue }} -
+                                                {{ $value->endValue }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                               
+
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">End</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="endValue"
-                                        aria-describedby="emailHelp" placeholder="End Value">
-                                    {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+                                    <select class="form-control" aria-label="Default select example" name="compEvaDecisionID">
+                                        <option value="">Select</option>
+                                        @foreach (@$process as $value)
+                                            <option value="{{ $value->compEvaDecisionID }}">{{ $value->compEvaDecisionName }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -125,8 +131,8 @@
 
 
             <!--Edit Modal -->
-            <div class="modal fade" id="exampleModaEditValueRange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="exampleModaEditValueRange" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -143,7 +149,7 @@
                                         aria-describedby="emailHelp" placeholder="Name">
                                     <input type="hidden" id="Cid" name="pValueRangeID">
                                 </div>
-                               
+
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">End</label>
                                     <input type="text" class="form-control" id="endValueId" name="endValue"
@@ -182,7 +188,7 @@
             });
         });
 
-        function openEditModalCorruptype(id,endValue) {
+        function openEditModalCorruptype(id, endValue) {
             console.log(7777);
             console.log(id);
             console.log(endValue);

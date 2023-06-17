@@ -315,6 +315,7 @@ Route::get('corruption-types/{id}',[CorruptionController::class,'deleteCoruptype
 Route::get('corruption-areas/{id}',[CorruptionAreaController::class,'deleteCoruptArea'])->name('corruparea.delete');
 Route::get('complain-evaluation-decisions/{id}',[ComplainEvalDecController::class,'deleteCompEvalDec'])->name('complaint-evaluation-decision.delete');
 Route::get('pl-values-ranges/{id}',[PlValueRangeController::class,'deleteValueRange'])->name('value.rangepl.delete');
+Route::get('pl-values-scope/{id}',[InterPretationPValuesController::class,'deleteValueScope'])->name('value.scope.delete');
 
 
 // complaint-masters

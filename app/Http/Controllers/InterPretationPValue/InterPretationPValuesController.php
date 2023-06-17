@@ -5,6 +5,8 @@ namespace App\Http\Controllers\InterPretationPValue;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PlValueScore;
+use App\Models\ComplainEvaluationDecision;
+use App\Models\PlValueRange;
 use Redirect;
 use Alert;
 
@@ -24,7 +26,8 @@ class InterPretationPValuesController extends Controller
             ->select('ce_linkpvalues_compdecisions.lpvalueCompDecisionID', 'ce_pltblpvaluesrange.startValue', 'ce_pltblpvaluesrange.endValue', 'ce_pltblcomplaintsevaluationdecisions.compEvaDecisionName', 'ce_linkpvalues_compdecisions.isDelete')
             ->orderBy('ce_linkpvalues_compdecisions.lpvalueCompDecisionID')
             ->get();
-
+            $data['processing'] = PlValueRange::where('isDelete',0)->get();
+            $data['process'] = ComplainEvaluationDecision::where('isDelete',0)->get();
             // dd($data['data']);
 
             return view('pvaluescore.list', $data);
@@ -49,6 +52,7 @@ class InterPretationPValuesController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $this->validate($request, [
             'pValueRangeID' => 'required',
             'compEvaDecisionID' => 'required',
@@ -60,12 +64,7 @@ class InterPretationPValuesController extends Controller
 
         ])->first();
 
-        if (count($interpretationPValue)) {
-
-            Alert::warning('Something went wrong');
-            return Redirect::back();
-
-        } else {
+       
             $addinterpretationPValue = new PlValueScore();
             $addinterpretationPValue->pValueRangeID = $request['pValueRangeID'];
             $addinterpretationPValue->compEvaDecisionID = $request['compEvaDecisionID'];
@@ -73,7 +72,7 @@ class InterPretationPValuesController extends Controller
 
             Alert::success('You\'ve Successfully Added A New Interpretation P-value ');
             return Redirect::back();
-        }
+        
     }
 
     /**
@@ -119,5 +118,12 @@ class InterPretationPValuesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function deleteValueScope($id){
+         // dd($id);
+        PlValueScore::where(['lpvalueCompDecisionID' => $id])->delete();
+        Alert::success(' PlValueScore Deleted Successfully');
+        return redirect()->back();
     }
 }
