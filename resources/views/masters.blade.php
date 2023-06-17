@@ -174,6 +174,23 @@
 
                             </div>
 
+                            <div class="row">
+                                
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <a href="{{route('pl-value-range.index')}}" class="btn btn-primary">Pursuability Values Range</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <a href="{{route('pl-value-scope.index')}}" class="btn btn-warning">Interpretation of P-Value Score</a>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
 
                         </div>
 
