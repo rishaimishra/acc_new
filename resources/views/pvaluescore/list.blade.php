@@ -54,12 +54,12 @@
                                                 <td>
 
 
-                                                    {{-- <a type="button"
-                                                        class="btn btn-xs btn-primary row-class-{{ @$att->pValueRangeID }}"
+                                                    <a type="button"
+                                                        class="btn btn-xs btn-primary row-class-{{ @$att->lpvalueCompDecisionID }}"
                                                         data-row-data='{{ @$att->startValue }}' data-toggle="modal"
-                                                        onclick="openEditModalCorruptype({{ @$att->pValueRangeID }},`{{ @$att->endValue }}`)">
+                                                        onclick="openEditModalValueScope({{ @$att->lpvalueCompDecisionID }},`{{ @$att->endValue }}`,`{{@$att->compEvaDecisionName}}`)">
                                                         Edit
-                                                    </a> --}}
+                                                    </a>
 
                                                     <a class="btn btn-xs btn-danger"
                                                         href="{{ route('value.scope.delete', ['id' => @$att->lpvalueCompDecisionID]) }}"
@@ -102,8 +102,7 @@
                                     <select class="form-control" aria-label="Default select example" name="pValueRangeID">
                                         <option value="">Select</option>
                                         @foreach (@$processing as $value)
-                                            <option value="{{ $value->pValueRangeID }}">{{ $value->startValue }} -
-                                                {{ $value->endValue }}</option>
+                                            <option value="{{ $value->pValueRangeID }}">{{ $value->startValue }} - {{ $value->endValue }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -131,7 +130,7 @@
 
 
             <!--Edit Modal -->
-            <div class="modal fade" id="exampleModaEditValueRange" tabindex="-1" role="dialog"
+            <div class="modal fade" id="exampleModaEditValueScope" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -142,19 +141,36 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('plvalues.edit.update') }}">@csrf
+                            <form method="post" action="{{ route('plvaluesScore.edit.update') }}">@csrf
+                              
+                                {{-- <div class="form-group">
+                                    <label for="exampleInputEmail1">End</label>
+                                    <input type="text" class="form-control" id="endValueId" name="endValue"
+                                        aria-describedby="emailHelp" placeholder="Remarks">
+                                </div> --}}
+
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Start</label>
-                                    <input type="text" class="form-control" id="startVAlueId" name="startValue"
-                                        aria-describedby="emailHelp" placeholder="Name">
-                                    <input type="hidden" id="Cid" name="pValueRangeID">
+                                    <label for="exampleInputEmail1">Score Range</label>
+                                    <select class="form-control" aria-label="Default select example" name="pValueRangeID" id="startVAlueId">
+                                        <option value="">Select</option>
+                                        @foreach (@$processing as $value)
+                                            <option value="{{ $value->pValueRangeID }}">{{ $value->startValue }} - {{ $value->endValue }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <input type="hidden" id="Cid" name="lpvalueCompDecisionID">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">End</label>
-                                    <input type="text" class="form-control" id="endValueId" name="endValue"
-                                        aria-describedby="emailHelp" placeholder="Remarks">
+                                    <select class="form-control" aria-label="Default select example" id="compEvaDecisionIDname" name="compEvaDecisionID">
+                                        <option value="">Select</option>
+                                        @foreach (@$process as $value)
+                                            <option value="{{ $value->compEvaDecisionID }}">{{ $value->compEvaDecisionName }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
+
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -188,15 +204,24 @@
             });
         });
 
-        function openEditModalCorruptype(id, endValue) {
+        function openEditModalValueScope(id, endValue, compEvaDecisionName) {
             console.log(7777);
             console.log(id);
-            console.log(endValue);
+            console.log(compEvaDecisionName);
             let data = $(`.row-class-${id}`).attr('data-row-data');
-            console.log(data);
-            $('#exampleModaEditValueRange').modal('show')
-            document.getElementById("startVAlueId").value = data;
-            document.getElementById("endValueId").value = endValue;
+            console.log(data+'-'+endValue);
+            $('#exampleModaEditValueScope').modal('show')
+            // document.getElementById("startVAlueId").value = data+'-'+endValue;
+
+            $("#startVAlueId option").filter(function() {
+            return $(this).text() == data+' - '+endValue;
+            }).prop('selected', true);
+            
+            // document.getElementById("compEvaDecisionIDname").value = compEvaDecisionName;
+            $("#compEvaDecisionIDname option").filter(function() {
+            return $(this).text() == compEvaDecisionName;
+            }).prop('selected', true);
+            
             document.getElementById("Cid").value = id;
 
         }

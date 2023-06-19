@@ -433,4 +433,4 @@ Route::post('corrupt-type-edit',[CorruptionController::class,'EditCorruptype'])-
 Route::post('corrupt-area-edit',[CorruptionAreaController::class,'EditCorruparea'])->name('corruparea.edit.update');
 Route::post('complain-eval-decision-edit',[ComplainEvalDecController::class,'EditCorruparea'])->name('compevaldec.edit.update');
 Route::post('pl-value-range-edit',[PlValueRangeController::class,'EditPlValues'])->name('plvalues.edit.update');
-Route::post('pl-value-score',[InterPretationPValuesController::class,'EditPlValuesScore'])->name('plvaluesScore.edit.update');
+Route::post('pl-value-scope-edit',[InterPretationPValuesController::class,'EditPlValuesScore'])->name('plvaluesScore.edit.update');

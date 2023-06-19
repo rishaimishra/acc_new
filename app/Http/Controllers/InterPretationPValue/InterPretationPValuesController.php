@@ -126,4 +126,16 @@ class InterPretationPValuesController extends Controller
         Alert::success(' PlValueScore Deleted Successfully');
         return redirect()->back();
     }
+
+    public function EditPlValuesScore(Request $request){
+        // dd($request);
+        $person = new PlValueScore;
+        $person->where(['lpvalueCompDecisionID' => $request->lpvalueCompDecisionID])->update([
+            'pValueRangeID' => $request->pValueRangeID,
+            'compEvaDecisionID' => $request->compEvaDecisionID
+        ]);
+
+        Alert::success(' PlValueScore Updated Successfully');
+        return redirect()->back();
+    }
 }
