@@ -32,6 +32,8 @@ use App\Http\Controllers\agency\AgencyController;
 use App\Http\Controllers\Corrupt\CorruptionController;
 use App\Http\Controllers\CorruptArea\CorruptionAreaController;
 use App\Http\Controllers\ComplainEvaDecision\ComplainEvalDecController;
+use App\Http\Controllers\PlvalueRange\PlValueRangeController;
+use App\Http\Controllers\InterPretationPValue\InterPretationPValuesController;
 
 
 use App\Http\Controllers\AssignComplaintRegional;
@@ -297,6 +299,8 @@ Route::resource('agency', AgencyController::class);
 Route::resource('corruption-type', CorruptionController::class);
 Route::resource('corruption-area', CorruptionAreaController::class);
 Route::resource('complain-evaluation-decision', ComplainEvalDecController::class);
+Route::resource('pl-value-range', PlValueRangeController::class);
+Route::resource('pl-value-scope', InterPretationPValuesController::class);
 
 
 Route::get('dzonkhags/{id}',[DzonkhagController::class,'deleteDz'])->name('dzonkhag.delete');
@@ -310,6 +314,8 @@ Route::get('agencys/{id}',[AgencyController::class,'deleteAgency'])->name('agenc
 Route::get('corruption-types/{id}',[CorruptionController::class,'deleteCoruptype'])->name('corruptype.delete');
 Route::get('corruption-areas/{id}',[CorruptionAreaController::class,'deleteCoruptArea'])->name('corruparea.delete');
 Route::get('complain-evaluation-decisions/{id}',[ComplainEvalDecController::class,'deleteCompEvalDec'])->name('complaint-evaluation-decision.delete');
+Route::get('pl-values-ranges/{id}',[PlValueRangeController::class,'deleteValueRange'])->name('value.rangepl.delete');
+Route::get('pl-values-scope/{id}',[InterPretationPValuesController::class,'deleteValueScope'])->name('value.scope.delete');
 
 
 // complaint-masters
@@ -426,3 +432,5 @@ Route::post('agency-edit',[AgencyController::class,'EditAgency'])->name('agency.
 Route::post('corrupt-type-edit',[CorruptionController::class,'EditCorruptype'])->name('corruptype.edit.update');
 Route::post('corrupt-area-edit',[CorruptionAreaController::class,'EditCorruparea'])->name('corruparea.edit.update');
 Route::post('complain-eval-decision-edit',[ComplainEvalDecController::class,'EditCorruparea'])->name('compevaldec.edit.update');
+Route::post('pl-value-range-edit',[PlValueRangeController::class,'EditPlValues'])->name('plvalues.edit.update');
+Route::post('pl-value-scope-edit',[InterPretationPValuesController::class,'EditPlValuesScore'])->name('plvaluesScore.edit.update');
